@@ -1,6 +1,6 @@
 {
   "name": "d3plus-dev",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A collection of scripts for developing D3plus modules.",
   "main": "build/d3plus-dev.js",
   "license": "MIT",
