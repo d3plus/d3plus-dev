@@ -72,7 +72,7 @@ function finishRelease() {
     }
     else {
 
-      if (shell.test("-d", "build")) {
+      if (shell.test("-f", `build/${name}.zip`)) {
         log.timer("attaching .zip distribution to release");
         asset(token, {
           repo: name,
