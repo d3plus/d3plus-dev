@@ -37,6 +37,7 @@
     "env": "d3plus-env",
     "examples": "d3plus-examples",
     "locale": "d3plus-locale",
+    "postinstall": "npm link",
     "release": "d3plus-release",
     "test": "d3plus-test"
   },
