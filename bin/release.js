@@ -23,16 +23,28 @@ const rollup = require("./rollup");
 function finishRelease() {
 
   log.timer("compiling examples");
-  shell.exec("d3plus-examples");
+  const ex = shell.exec("d3plus-examples");
+  if (ex.code) {
+    log.fail();
+    shell.exit(ex.code);
+  }
 
   log.timer("compiling documentation");
-  shell.exec("d3plus-docs");
+  const docs = shell.exec("d3plus-docs");
+  if (docs.code) {
+    log.fail();
+    shell.exit(docs.code);
+  }
 
   log.timer("compiling release notes");
   const body = shell.exec("git log --pretty=format:'* %s (%h)' `git describe --tags --abbrev=0`...HEAD").stdout;
 
   log.timer("publishing npm package");
-  shell.exec("npm publish ./");
+  const pub = shell.exec("npm publish ./");
+  if (pub.code) {
+    log.fail();
+    shell.exit(pub.code);
+  }
 
   log.timer("commiting all modified files for release");
   const add = shell.exec("git add --all");
@@ -47,7 +59,7 @@ function finishRelease() {
   }
 
   log.timer("pushing to repository");
-  const push = shell.exec("git push -q");
+  const push = shell.exec("git push");
   if (push.code) {
     log.fail();
     shell.exit(push.code);
@@ -55,7 +67,11 @@ function finishRelease() {
 
   log.timer("tagging latest commit");
   shell.exec(`git tag v${version}`);
-  shell.exec("git push -q --tags");
+  const tag = shell.exec("git push --tags");
+  if (tag.code) {
+    log.fail();
+    shell.exit(tag.code);
+  }
 
   log.timer("publishing release notes");
   release(token, {
