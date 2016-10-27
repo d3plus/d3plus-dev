@@ -67,6 +67,10 @@ function finishRelease() {
   }, error => {
     if (error) {
       log.fail();
+      shell.echo(`repo: ${name}`);
+      shell.echo(`tag/name: v${version}`);
+      shell.echo(`body: ${body}`);
+      shell.echo(`prerelease: ${prerelease}`);
       shell.echo(error.message);
       shell.exit(1);
     }
