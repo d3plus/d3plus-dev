@@ -88,6 +88,14 @@ ${examples}
 `;
 new shell.ShellString(contents).to(template);
 
-shell.exec(`jsdoc2md '+(bin|src)/**/*.js' --heading-depth 3 -t ${template} > README.md`);
-log.exit();
-shell.exit(0);
+shell.exec(`jsdoc2md '+(bin|src)/**/*.js' --heading-depth 3 -t ${template} > README.md`, (code, stdout) => {
+  if (code) {
+    log.fail();
+    shell.echo(stdout);
+    shell.exit(code);
+  }
+  else {
+    log.exit();
+    shell.exit(0);
+  }
+});

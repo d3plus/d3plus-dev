@@ -128,17 +128,44 @@ if (shell.test("-d", "example")) {
       if (shell.test("-d", "../d3plus-website")) {
         log.timer("uploading examples to d3plus.org");
         shell.cd("../d3plus-website");
-        shell.exec(`git add _examples/${name}/*`);
-        shell.exec(`git commit -m \"${name} examples\"`);
-        shell.exec("git push -q");
+        shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
+          if (code) {
+            log.fail();
+            server.shutdown();
+            shell.echo(stdout);
+            shell.exit(code);
+          }
+
+          shell.exec(`git commit -m \"${name} examples\"`, (code, stdout) => {
+            if (code) {
+              log.fail();
+              server.shutdown();
+              shell.echo(stdout);
+              shell.exit(code);
+            }
+
+            shell.exec("git push", (code, stdout) => {
+              if (code) {
+                log.fail();
+                shell.echo(stdout);
+              }
+              else log.done();
+
+              server.shutdown();
+              shell.exit(code);
+
+            });
+
+          });
+
+        });
       }
       else {
         log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
+        log.exit();
+        server.shutdown();
+        shell.exit(0);
       }
-
-      log.exit();
-      server.shutdown();
-      shell.exit(0);
 
     });
 
@@ -152,15 +179,46 @@ else {
     shell.rm("-rf", `../d3plus-website/_examples/${name}`);
 
     shell.cd("../d3plus-website");
-    shell.exec(`git add _examples/${name}/*`);
-    shell.exec(`git commit -m \"${name} examples\"`);
-    shell.exec("git push -q");
-    log.done();
+    shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
+      if (code === 128) {
+        log.done();
+
+        log.warn("no examples found matching 'example/*.md' in root");
+        log.exit();
+
+        shell.exit(0);
+      }
+      else if (code) {
+        log.fail();
+        shell.echo(stdout);
+        shell.exit(code);
+      }
+
+      shell.exec(`git commit -m \"${name} examples\"`, (code, stdout) => {
+        if (code) {
+          log.fail();
+          shell.echo(stdout);
+          shell.exit(code);
+        }
+
+        shell.exec("git push", (code, stdout) => {
+          if (code) {
+            log.fail();
+            shell.echo(stdout);
+          }
+          else log.done();
+
+          log.warn("no examples found matching 'example/*.md' in root");
+          log.exit();
+
+          shell.exit(code);
+
+        });
+
+      });
+
+    });
+
   }
-
-  log.warn("no examples found matching 'example/*.md' in root");
-  log.exit();
-
-  shell.exit(0);
 
 }
