@@ -66,7 +66,7 @@ function finishRelease() {
     body, prerelease
   }, error => {
     if (error) {
-      log.error();
+      log.fail();
       shell.echo(error.message);
       shell.exit(1);
     }
@@ -81,7 +81,7 @@ function finishRelease() {
           filename: `build/${name}.zip`
         }, error => {
           if (error) {
-            log.error();
+            log.fail();
             shell.echo(error.message);
             shell.exit(1);
           }
