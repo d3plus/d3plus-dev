@@ -58,19 +58,18 @@ function finishRelease() {
     shell.exit(commit.code);
   }
 
-  log.timer("pushing to repository");
-  const push = shell.exec("git push");
-  if (push.code) {
-    log.fail();
-    shell.exit(push.code);
-  }
-
   log.timer("tagging latest commit");
-  shell.exec(`git tag v${version}`);
-  const tag = shell.exec("git push --tags");
+  const tag = shell.exec(`git tag v${version}`);
   if (tag.code) {
     log.fail();
     shell.exit(tag.code);
+  }
+
+  log.timer("pushing to repository");
+  const push = shell.exec(`git push origin ${version}`);
+  if (push.code) {
+    log.fail();
+    shell.exit(push.code);
   }
 
   log.timer("publishing release notes");
