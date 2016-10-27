@@ -66,7 +66,7 @@ function finishRelease() {
   }
 
   log.timer("pushing to repository");
-  const push = shell.exec("git push origin --follow-tags", {silent: false});
+  const push = shell.exec("git push origin --follow-tags");
   if (push.code) {
     log.fail();
     shell.exit(push.code);
