@@ -7,6 +7,7 @@ module.exports = function(name) {
   if (!process.env.D3PLUS_SCRIPT_LOGO) logo(name);
   process.env.D3PLUS_SCRIPT_LOGO = true;
 
+  const frames = ["█", "░", "▒", "▓"];
   let interval, message = "";
 
   this.done = msg => {
@@ -32,22 +33,22 @@ module.exports = function(name) {
 
     message = msg;
 
-    process.stdout.write(`[      ] ${message}`);
+    process.stdout.write(`[ ${chalk.gray("wait")} ] ${message}`);
 
     let tick = 0;
 
     interval = setInterval(() => {
       const arr = Array(4).fill(" ");
-      arr[tick % 4] = "*";
+      frames.forEach((f, i) => arr[(i + tick % frames.length) % frames.length] = f);
       process.stdout.write(`\r[ ${chalk.yellow(arr.join(""))} ] ${message}`);
       tick++;
-    }, 200);
+    }, 150);
 
   };
 
   this.update = msg => {
     if (msg) message = msg;
-    process.stdout.write(`\r[      ] ${message}`);
+    process.stdout.write(`\r[ ${chalk.gray("wait")} ] ${message}`);
   };
 
   this.warn = msg => {
