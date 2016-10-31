@@ -129,34 +129,40 @@ if (shell.test("-d", "example")) {
         log.timer("uploading examples to d3plus.org");
         shell.cd("../d3plus-website");
         shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
+
           if (code) {
             log.fail();
             server.shutdown();
             shell.echo(stdout);
             shell.exit(code);
           }
+          else {
 
-          shell.exec(`git commit -m \"${name} examples\"`, (code, stdout) => {
-            if (code) {
-              log.fail();
-              server.shutdown();
-              shell.echo(stdout);
-              shell.exit(code);
-            }
+            shell.exec(`git commit -m \"${name} examples\"`, code => {
 
-            shell.exec("git push", (code, stdout) => {
               if (code) {
-                log.fail();
-                shell.echo(stdout);
+                log.done();
+                shell.exit(0);
               }
-              else log.done();
+              else {
 
-              server.shutdown();
-              shell.exit(code);
+                shell.exec("git push", (code, stdout) => {
+                  if (code) {
+                    log.fail();
+                    shell.echo(stdout);
+                  }
+                  else log.done();
+
+                  server.shutdown();
+                  shell.exit(code);
+
+                });
+
+              }
 
             });
 
-          });
+          }
 
         });
       }
@@ -179,6 +185,7 @@ else {
     shell.rm("-rf", `../d3plus-website/_examples/${name}`);
 
     shell.cd("../d3plus-website");
+
     shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
       if (code === 128) {
         log.done();
@@ -193,29 +200,35 @@ else {
         shell.echo(stdout);
         shell.exit(code);
       }
+      else {
 
-      shell.exec(`git commit -m \"${name} examples\"`, (code, stdout) => {
-        if (code) {
-          log.fail();
-          shell.echo(stdout);
-          shell.exit(code);
-        }
+        shell.exec(`git commit -m \"${name} examples\"`, code => {
 
-        shell.exec("git push", (code, stdout) => {
           if (code) {
-            log.fail();
-            shell.echo(stdout);
+            log.done();
+            shell.exit(0);
           }
-          else log.done();
+          else {
 
-          log.warn("no examples found matching 'example/*.md' in root");
-          log.exit();
+            shell.exec("git push", (code, stdout) => {
+              if (code) {
+                log.fail();
+                shell.echo(stdout);
+              }
+              else log.done();
 
-          shell.exit(code);
+              log.warn("no examples found matching 'example/*.md' in root");
+              log.exit();
+
+              shell.exit(code);
+
+            });
+
+          }
 
         });
 
-      });
+      }
 
     });
 
