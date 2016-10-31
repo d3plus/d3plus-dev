@@ -7,7 +7,7 @@ module.exports = function(name) {
   if (!process.env.D3PLUS_SCRIPT_LOGO) logo(name);
   process.env.D3PLUS_SCRIPT_LOGO = true;
 
-  const frames = [chalk.gray("█"), chalk.gray("▆"), chalk.gray("▃"), chalk.gray("▆")];
+  const frames = [chalk.dim("█"), chalk.dim("▆"), chalk.dim("▃"), chalk.dim("▆")];
   let interval, message = "";
 
   this.done = msg => {
