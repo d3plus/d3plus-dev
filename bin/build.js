@@ -26,8 +26,9 @@ rollup().then(() => {
 
         log.timer("create .zip distribution");
         const files = ["LICENSE", "README.md",
-                       `build/${name}.js`, `build/${name}.min.js`,
-                       `build/${name}.full.js`, `build/${name}.full.min.js`];
+          `build/${name}.js`, `build/${name}.min.js`,
+          `build/${name}.full.js`, `build/${name}.full.min.js`
+        ];
         shell.exec(`rm -f build/${name}.zip && zip -j -q build/${name}.zip -- ${files.join(" ")}`, (code, stdout) => {
           if (code) kill(code, stdout);
 
