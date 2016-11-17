@@ -14,7 +14,7 @@ shell.exec("eslint --color index.js bin/*.js src/*.js test/*.js", {silent: true}
   else {
     log.done();
 
-    if (shell.test("-d", "test")) {
+    if (shell.exec("ls -R test/*.js", {silent: true}).length) {
       log.timer("unit and browser tests");
       shell.exec("browserify -t [ babelify --presets [ es2015 ] ] test/*.js | tape-run --render='faucet'", {silent: true}, (code, stdout) => {
 
