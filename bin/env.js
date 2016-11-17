@@ -23,6 +23,7 @@ node_modules
 npm-debug.log
 test/*.html
 test/*.png
+test/*.json
 `).to(".gitignore");
 
 
@@ -47,11 +48,16 @@ addons:
   apt:
     packages:
       - xvfb
+
 install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
   - npm install
-  - npm link
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
 `).to(".travis.yml");
 
 
