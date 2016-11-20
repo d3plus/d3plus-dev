@@ -18,12 +18,12 @@ new shell.ShellString(JSON.stringify(eslint, null, 2)).to(".eslintrc");
 log.timer(".gitignore");
 new shell.ShellString(`.DS_Store
 build/
-example/*.html
+example/**/*.html
 node_modules
 npm-debug.log
-test/*.html
-test/*.png
-test/*.json
+test/**/*.html
+test/**/*.png
+test/**/*.json
 `).to(".gitignore");
 
 
