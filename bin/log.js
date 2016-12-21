@@ -24,7 +24,7 @@ module.exports = function(name) {
 
   this.exit = msg => {
     if (interval) this.done(msg);
-    shell.echo(`\n`);
+    shell.echo("\n");
   };
 
   this.timer = (msg = chalk.gray("please pass a process name to .start()")) => {
