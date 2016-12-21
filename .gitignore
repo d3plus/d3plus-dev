@@ -1,7 +1,8 @@
 .DS_Store
 build/
-example/*.html
+example/**/*.html
 node_modules
 npm-debug.log
-test/*.html
-test/*.png
+test/**/*.html
+test/**/*.png
+test/**/*.json
