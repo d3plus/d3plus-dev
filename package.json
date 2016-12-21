@@ -60,7 +60,7 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-watch": "^2.5.0",
     "shelljs": "^0.7.5",
-    "tape": "^4.6.2",
+    "tape": "^4.6.3",
     "tape-run": "^2.1.5",
     "uglify-js": "^2.7.4"
   }
