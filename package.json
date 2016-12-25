@@ -50,7 +50,7 @@
     "faucet": "0.0.1",
     "github-issues-label-sync": "^2.1.0",
     "grizzly": "^2.1.1",
-    "i18next-parser": "^0.10.1",
+    "i18next-parser": "^0.11.0",
     "jsdoc-to-markdown": "^2.0.1",
     "live-server": "^1.1.0",
     "putasset": "^1.0.9",
