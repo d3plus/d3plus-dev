@@ -12,11 +12,11 @@ A collection of scripts for developing D3plus modules.
 If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-dev/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. Create a [custom bundle using Rollup](https://github.com/rollup/rollup) or your preferred bundler. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-dev.v0.1.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-dev.v0.2.full.min.js"></script>
 ```
 
 
 ## API Reference
 
 
-###### <sub>Documentation generated on Tue, 17 Jan 2017 02:32:03 GMT</sub>
+###### <sub>Documentation generated on Thu, 26 Jan 2017 07:29:28 GMT</sub>
