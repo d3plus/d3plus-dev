@@ -4,13 +4,11 @@ module.exports = log => {
 
   log.timer("creating/updating .gitignore");
   new shell.ShellString(`.DS_Store
-build/
+build
+dev
 example/**/*.html
 node_modules
 npm-debug.log
-test/**/*.html
-test/**/*.png
-test/**/*.json
 `).to(".gitignore");
 
 };
