@@ -15,8 +15,11 @@ shell.exec("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js te
     log.done();
 
     if (shell.exec("ls -R test/*.js test/**/*.js", {silent: true}).length) {
+      const dirs = [];
+      if (shell.exec("ls -R test/*.js", {silent: true}).length) dirs.push("test/*.js");
+      if (shell.exec("ls -R test/**/*.js", {silent: true}).length) dirs.push("test/**/*.js");
       log.timer("unit and browser tests");
-      shell.exec("browserify -t [ babelify --presets [ es2015 ] ] test/*.js test/**/*.js | tape-run --render='faucet'", {silent: true}, (code, stdout) => {
+      shell.exec(`browserify -t [ babelify --presets [ es2015 ] ] ${dirs.join(" ")} | tape-run --render='faucet'`, {silent: true}, (code, stdout) => {
 
         log.done();
         shell.echo("");
