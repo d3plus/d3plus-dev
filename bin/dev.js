@@ -9,7 +9,7 @@ require("live-server").start({
   logLevel: 0,
   noBrowser: true,
   port,
-  watch: ["build", "test"]
+  watch: ["build", "dev"]
 }).on("listening", () => {
   log.done();
   rollup({deps: true, watch: true});
