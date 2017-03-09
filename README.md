@@ -19,4 +19,4 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 ## API Reference
 
 
-###### <sub>Documentation generated on Thu, 09 Mar 2017 17:07:09 GMT</sub>
+###### <sub>Documentation generated on Thu, 09 Mar 2017 18:49:00 GMT</sub>
