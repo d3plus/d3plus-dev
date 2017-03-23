@@ -1,5 +1,6 @@
 const banner = require("./banner"),
       buble = require("rollup-plugin-buble"),
+      commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),
       json = require("rollup-plugin-json"),
       log = require("./log")("rollup"),
@@ -12,7 +13,10 @@ shell.config.silent = true;
 module.exports = function(opts = {}) {
 
   const plugins = [json()];
-  if (opts.deps) plugins.push(deps({jsnext: true}));
+  if (opts.deps) {
+    plugins.push(deps({jsnext: true}));
+    plugins.push(commonjs());
+  }
   plugins.push(buble());
 
   const entry = {entry: "index.js", plugins, onwarn: () => {}};
