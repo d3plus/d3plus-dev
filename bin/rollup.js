@@ -14,7 +14,7 @@ module.exports = function(opts = {}) {
 
   const plugins = [json()];
   if (opts.deps) {
-    plugins.push(deps({jsnext: true}));
+    plugins.push(deps({jsnext: true, preferBuiltins: false}));
     plugins.push(commonjs());
   }
   plugins.push(buble());
