@@ -1,8 +1,8 @@
-import {test} from "tape";
+import zora from "zora";
 
-test("nested", assert => {
+export default zora()
+  .test("nested", assert => {
 
-  assert.equals(true, true, "nested test directory");
-  assert.end();
+    assert.equal(true, true, "nested test directory");
 
-});
+  });

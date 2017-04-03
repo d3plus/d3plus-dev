@@ -1,8 +1,8 @@
-import {test} from "tape";
+import zora from "zora";
 
-test("root", assert => {
+export default zora()
+  .test("root", assert => {
 
-  assert.equals(true, true, "root test directory");
-  assert.end();
+    assert.equal(true, true, "root test directory");
 
-});
+  });
