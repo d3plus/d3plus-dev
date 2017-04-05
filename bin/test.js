@@ -10,8 +10,7 @@ const buble = require("rollup-plugin-buble"),
       {name} = JSON.parse(shell.cat("package.json"));
 
 log.timer("linting code");
-shell.config.silent = true;
-shell.exec("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js test/*.js test/**/*.js", (code, stdout) => {
+shell.exec("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js test/*.js test/**/*.js", {silent: true}, (code, stdout) => {
 
   if (code) {
     log.fail();
@@ -24,7 +23,7 @@ shell.exec("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js te
     const tests = shell.ls("-R", "test/**/*.js");
     if (tests.length) {
 
-      log.timer("unit and browser tests");
+      log.timer("compiling tests");
       tests.reverse();
 
       new shell.ShellString(`
@@ -58,14 +57,14 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
       rollup.rollup(entry)
         .then(bundle => {
           bundle.write(config);
+          log.done();
+          shell.echo("");
 
-          shell.exec("cat ./test/.bundle.js | tape-run --render='faucet'", (code, stdout) => {
+          shell.exec("cat ./test/.bundle.js | tape-run --render='faucet'", code => {
 
             shell.rm("test/.index.js");
             shell.rm("test/.bundle.js");
-            log.done();
             shell.echo("");
-            shell.echo(stdout);
             shell.exit(code);
 
           });
