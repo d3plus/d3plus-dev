@@ -61,5 +61,9 @@
     "tape-run": "^3.0.0",
     "uglify-js": "^2.7.5",
     "zora": "^0.3.0"
+  },
+  "devDependencies": {
+    "d3plus-shape": "^0.13.1",
+    "d3plus-text": "^0.9.17"
   }
 }
