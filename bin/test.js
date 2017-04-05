@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
-const commonjs = require("rollup-plugin-commonjs"),
+const buble = require("rollup-plugin-buble"),
+      commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),
       json = require("rollup-plugin-json"),
       log = require("./log")("testing suite"),
@@ -40,7 +41,10 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
         plugins: [
           json(),
           deps({jsnext: true, preferBuiltins: false}),
-          commonjs()
+          commonjs(),
+          buble({
+            exclude: ["node_modules/zora/**", "test/**"]
+          })
         ]
       };
 
