@@ -56,18 +56,23 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
 
       rollup.rollup(entry)
         .then(bundle => {
-          bundle.write(config);
-          log.done();
-          shell.echo("");
 
-          shell.exec("cat test/.bundle.js | tape-run --render='faucet'", code => {
+          bundle.write(config)
+            .then(() => {
 
-            shell.rm("test/.index.js");
-            shell.rm("test/.bundle.js");
-            shell.echo("");
-            shell.exit(code);
+              log.done();
+              shell.echo("");
 
-          });
+              shell.exec("cat test/.bundle.js | tape-run --render='faucet'", code => {
+
+                shell.rm("test/.index.js");
+                shell.rm("test/.bundle.js");
+                shell.echo("");
+                shell.exit(code);
+
+              });
+
+            });
 
         })
         .catch(err => {
