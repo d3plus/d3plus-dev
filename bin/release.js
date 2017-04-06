@@ -153,16 +153,19 @@ if (shell.test("-d", "src")) {
               shell.exec(`git add js/${name}.v${minor}.js js/${name}.v${minor}.min.js js/${name}.v${minor}.full.js js/${name}.v${minor}.full.min.js`, (code, stdout) => {
                 if (code) kill(code, stdout);
 
-                shell.exec(`git commit -m \"${name} v${version}\"`, (code, stdout) => {
-                  if (code) kill(code, stdout);
+                shell.exec(`git commit -m \"${name} v${version}\"`, code => {
 
-                  shell.exec("git push", (code, stdout) => {
-                    if (code) kill(code, stdout);
+                  if (code) finishRelease();
+                  else {
 
-                    shell.cd("-");
-                    finishRelease();
+                    shell.exec("git push", () => {
 
-                  });
+                      shell.cd("-");
+                      finishRelease();
+
+                    });
+
+                  }
 
                 });
 

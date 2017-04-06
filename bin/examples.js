@@ -210,17 +210,10 @@ else {
           }
           else {
 
-            shell.exec("git push", (code, stdout) => {
-              if (code) {
-                log.fail();
-                shell.echo(stdout);
-              }
-              else log.done();
-
-              log.warn("no examples found matching 'example/*.md' in root");
+            shell.exec("git push", () => {
+              log.done();
               log.exit();
-
-              shell.exit(code);
+              shell.exit(0);
 
             });
 
