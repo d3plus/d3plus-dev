@@ -33,10 +33,10 @@ ${ tests.map((file, i) => `import test${i} from "./${ file.slice(5) }";`).join("
 zora()
 ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
   .run();
-`).to("test/.index.js");
+`).to("./test/.index.js");
 
       const entry = {
-        entry: "test/.index.js",
+        entry: "./test/.index.js",
         plugins: [
           json(),
           deps({jsnext: true, preferBuiltins: false}),
@@ -48,7 +48,7 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
       };
 
       const config = {
-        dest: "test/.bundle.js",
+        dest: "./test/.bundle.js",
         format: "iife",
         moduleId: name,
         moduleName: "d3plus"
@@ -62,8 +62,8 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
 
           shell.exec("cat ./test/.bundle.js | tape-run --render='faucet'", code => {
 
-            shell.rm("test/.index.js");
-            shell.rm("test/.bundle.js");
+            shell.rm("./test/.index.js");
+            shell.rm("./test/.bundle.js");
             shell.echo("");
             shell.exit(code);
 
