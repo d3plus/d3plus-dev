@@ -13,4 +13,7 @@ require("./_gitignore.js")(log);
 require("./_npmignore.js")(log);
 require("./_travis.js")(log);
 require("./_LICENSE.js")(log);
+require("./_ISSUE_TEMPLATE.js")(log);
+require("./_PULL_REQUEST_TEMPLATE.js")(log);
+require("./_CONTRIBUTING.js")(log);
 require("./_issueLabels.js")(log);
