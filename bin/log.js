@@ -7,7 +7,7 @@ module.exports = function(name) {
   if (!process.env.D3PLUS_SCRIPT_LOGO) logo(name);
   process.env.D3PLUS_SCRIPT_LOGO = true;
 
-  const frames = [chalk.dim("█"), chalk.dim("▆"), chalk.dim("▃"), chalk.dim("▆")];
+  const frames = ["▁", "▄", "▆", "█", "█", "▆", "▅", "▁"].map(d => chalk.dim(d));
   let interval, message = "";
 
   this.done = msg => {
@@ -38,11 +38,14 @@ module.exports = function(name) {
     let tick = 0;
 
     interval = setInterval(() => {
-      const arr = Array(4).fill(" ");
-      frames.forEach((f, i) => arr[(i + tick % frames.length) % frames.length] = f);
+      const arr = Array(4);
+      frames.forEach((f, i) => {
+        const index = (i + tick % frames.length) % frames.length;
+        if (index < arr.length) arr[index] = f;
+      });
       process.stdout.write(`\r[ ${arr.join("")} ] ${message}`);
       tick++;
-    }, 150);
+    }, 50);
 
   };
 
