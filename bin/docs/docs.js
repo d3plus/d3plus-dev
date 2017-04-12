@@ -13,7 +13,6 @@ const {description, name, version} = JSON.parse(shell.cat("package.json"));
 let minor = version.split(".");
 minor = minor.slice(0, minor.length - 1).join(".");
 
-
 let examples = "";
 
 function getVar(contents, key, def = 0, num = true) {

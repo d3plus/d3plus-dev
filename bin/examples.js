@@ -1,5 +1,11 @@
 #! /usr/bin/env node
 
+/**
+    @module d3plus-examples
+    @summary Generates example images and HTML.
+    @desc Parses any markdown files in the `./example` directory and transforms them into an HTML file usable on the web and takes a screenshot to be used as a thumbnail.
+**/
+
 const fs = require("fs"),
       log = require("./log")("building examples"),
       port = 4000,

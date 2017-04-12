@@ -1,5 +1,11 @@
 #! /usr/bin/env node
 
+/**
+    @module d3plus-test
+    @summary Runs linting and unit/browser tests on source files.
+    @desc Based on the .eslintrc file provided by the [d3plus-env](#module_d3plus-env) script, all source files will be linted and then passed to any browser/unit tests that have been written.
+**/
+
 const buble = require("rollup-plugin-buble"),
       commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),

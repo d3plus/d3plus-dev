@@ -1,5 +1,11 @@
 #! /usr/bin/env node
 
+/**
+    @module d3plus-build
+    @summary Compiles all files for distribution.
+    @desc This script will compile 2 builds, one with all dependencies includes (full) and one with only the core code. Next, each of those builds is minified using uglifyjs. Finally, all those builds, along with the LICENSE and README, are compressed into a .zip file.
+**/
+
 const log = require("./log")("build compile"),
       rollup = require("./rollup"),
       shell = require("shelljs"),

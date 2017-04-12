@@ -2,6 +2,12 @@
 // export GITHUB_TOKEN=xxx
 // git config --global credential.helper osxkeychain
 
+/**
+    @module d3plus-release
+    @summary Publishes a release for a module.
+    @desc If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update all documentation and examples, and tag and publish release notes on Github.
+**/
+
 const asset = require("putasset"),
       release = require("grizzly"),
       shell = require("shelljs"),
