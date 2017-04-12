@@ -1,6 +1,12 @@
 #! /usr/bin/env node
 
-const log = require("./log")("documentation"),
+/**
+    @module d3plus-docs
+    @summary Generates documentation based on code comments.
+    @desc Generates the READEME.md documentation based on the JSDoc comments in the codebase. This script will overwrite README.md, but will not do any interaction with Github (commit, push, etc).
+**/
+
+const log = require("../log")("documentation"),
       shell = require("shelljs");
 const {description, name, version} = JSON.parse(shell.cat("package.json"));
 
@@ -64,16 +70,13 @@ log.timer("writing JSDOC comments to README.md");
 const template = `${shell.tempdir()}/README.hbs`;
 const contents = `# ${name}
 
-[![NPM Release](http://img.shields.io/npm/v/${name}.svg?style=flat)](https://www.npmjs.org/package/${name})
-[![Build Status](https://travis-ci.org/d3plus/${name}.svg?branch=master)](https://travis-ci.org/d3plus/${name})
-[![Dependency Status](http://img.shields.io/david/d3plus/${name}.svg?style=flat)](https://david-dm.org/d3plus/${name})
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat)](https://gitter.im/d3plus/)
+[![NPM Release](http://img.shields.io/npm/v/${name}.svg?style=flat)](https://www.npmjs.org/package/${name}) [![Build Status](https://travis-ci.org/d3plus/${name}.svg?branch=master)](https://travis-ci.org/d3plus/${name}) [![Dependency Status](http://img.shields.io/david/d3plus/${name}.svg?style=flat)](https://david-dm.org/d3plus/${name}) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat)](https://gitter.im/d3plus/)
 
 ${description}
 
 ## Installing
 
-If you use NPM, \`npm install ${name}\`. Otherwise, download the [latest release](https://github.com/d3plus/${name}/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. Create a [custom bundle using Rollup](https://github.com/rollup/rollup) or your preferred bundler. You can also load directly from [d3plus.org](https://d3plus.org):
+If you use NPM, run \`npm install ${name} --save\`. Otherwise, download the [latest release](https://github.com/d3plus/${name}/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. You can also load directly from [d3plus.org](https://d3plus.org):
 
 \`\`\`html
 <script src="https://d3plus.org/js/${name}.v${minor}.full.min.js"></script>
@@ -81,14 +84,42 @@ If you use NPM, \`npm install ${name}\`. Otherwise, download the [latest release
 
 ${examples}
 ## API Reference
-{{>main}}
 
+{{#modules~}}
+{{#if @first~}}##### Scripts
+{{/if~}}
+* [{{{name}}}](#{{{anchorName}}}){{#if summary}} - {{{summary}}}{{else if description}} - {{{description}}}{{/if}}
+{{#if @last}}
 
-###### <sub>Documentation generated on ${new Date().toUTCString()}</sub>
+{{/if~}}
+{{/modules}}
+{{>list kind="class" title="Classes" ~}}
+{{>list kind="mixin" title="Mixins" ~}}
+{{>list kind="member" title="Members" ~}}
+{{>list kind="namespace" title="Objects" ~}}
+{{>list kind="constant" title="Constants" ~}}
+{{>list kind="function" title="Functions" ~}}
+{{>list kind="event" title="Events" ~}}
+{{>list kind="typedef" title="Typedefs" ~}}
+{{>list kind="external" title="External" ~}}
+{{>list kind="file" title="File" ~}}
+
+---
+
+{{#orphans ~}}
+<a name="{{{anchorName}}}"></a>
+#### {{>sig}}
+{{>body~}}
+
+---
+
+{{/orphans~}}
+
+###### <sub>Documentation generated on {{currentDate}}</sub>
 `;
 new shell.ShellString(contents).to(template);
 
-shell.exec(`jsdoc2md '+(bin|src)/**/*.+(js|jsx)' --heading-depth 3 -t ${template} > README.md`, (code, stdout) => {
+shell.exec(`jsdoc2md '+(bin|src)/**/*.+(js|jsx)' --separators --helper bin/docs/helpers.js --partial 'bin/docs/partials/*.hbs' -t ${template} > README.md`, (code, stdout) => {
   if (code) {
     log.fail();
     shell.echo(stdout);

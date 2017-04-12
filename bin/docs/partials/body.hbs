@@ -1,0 +1,43 @@
+{{>deprecated~}}
+
+{{>description}}
+
+{{#if scope~}}
+  {{~#if (equal kind "event") ~}}
+    This is an event emitted{{#if memberof}} by {{>link to=memberof}}{{/if~}}.
+  {{~else~}}
+    This is a{{#if virtual}}n abstract{{/if}} {{scope}} {{kindInThisContext}}{{#if memberof}} of {{>link to=memberof}}{{/if~}}
+  {{~/if~}}
+{{~else if isExported~}}
+  This is an exported {{kind}}
+{{~else~}}
+  This is a script accessible from the node environment
+{{~/if~}}
+{{~#if chainable}}, and is chainable with other methods of this Class{{/if~}}.
+
+{{>augments~}}
+{{>implements~}}
+{{>mixes~}}
+{{>default~}}
+{{>overrides~}}
+{{>returns~}}
+{{>category~}}
+{{>throws~}}
+{{>fires~}}
+{{>this~}}
+{{>access~}}
+{{>readOnly~}}
+{{>requires~}}
+{{>customTags~}}
+{{>see~}}
+{{>since~}}
+{{>version~}}
+{{>authors~}}
+{{>license~}}
+{{>copyright~}}
+{{>todo~}}
+{{>params~}}
+{{>properties~}}
+{{>examples~}}
+{{>member-index~}}
+{{>members~}}

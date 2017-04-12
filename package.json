@@ -23,7 +23,7 @@
   "bin": {
     "d3plus-build": "bin/build.js",
     "d3plus-dev": "bin/dev.js",
-    "d3plus-docs": "bin/docs.js",
+    "d3plus-docs": "bin/docs/docs.js",
     "d3plus-env": "bin/env/env.js",
     "d3plus-examples": "bin/examples.js",
     "d3plus-locale": "bin/locale.js",
