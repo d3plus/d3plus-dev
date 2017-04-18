@@ -111,4 +111,4 @@ This is a script accessible from the node environment.
 
 ---
 
-###### <sub>Documentation generated on Tue, 18 Apr 2017 21:16:43 GMT</sub>
+###### <sub>Documentation generated on Tue, 18 Apr 2017 21:17:49 GMT</sub>
