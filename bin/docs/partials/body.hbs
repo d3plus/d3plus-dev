@@ -8,17 +8,16 @@
   {{~else~}}
     This is a{{#if virtual}}n abstract{{/if}} {{scope}} {{kindInThisContext}}{{#if memberof}} of {{>link to=memberof}}{{/if~}}
   {{~/if~}}
+  {{>chainable~}}
 {{~else if isExported~}}
-  This is an exported {{kind}}
+  This is an exported {{kind}}{{>chainable~}}
 {{~else if (equal kind "module") ~}}
-  This is a script accessible from the node environment
+  This is a script accessible from the node environment{{>chainable~}}
 {{~else if chainable ~}}
-  This is a {{kindInThisContext}}
+  This is a {{kindInThisContext}}{{>chainable~}}
 {{~/if~}}
-{{~#if chainable}}, and is chainable with other methods of this Class{{/if~}}.
 {{~#if augments}} It extends all of the methods and functionality of {{>linked-type-list types=augments delimiter=", " }}.{{/if}}
 {{~#if implements}} It implements all of the methods and functionality of {{>linked-type-list types=implements delimiter=", " }}.{{/if}}
-
 {{>mixes~}}
 {{>default~}}
 {{>overrides~}}
