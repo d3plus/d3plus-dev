@@ -8,6 +8,7 @@
 
 const log = require("../log")("documentation"),
       shell = require("shelljs");
+
 const {description, name, version} = JSON.parse(shell.cat("package.json"));
 
 let minor = version.split(".");
@@ -118,7 +119,7 @@ ${examples}
 `;
 new shell.ShellString(contents).to(template);
 
-shell.exec(`jsdoc2md '+(bin|src)/**/*.+(js|jsx)' --separators --helper bin/docs/helpers.js --partial 'bin/docs/partials/*.hbs' -t ${template} > README.md`, (code, stdout) => {
+shell.exec(`jsdoc2md '+(bin|src)/**/*.+(js|jsx)' --separators --helper ${ __dirname }/helpers.js --partial '${ __dirname }/partials/*.hbs' -t ${ template } > README.md`, (code, stdout) => {
   if (code) {
     log.fail();
     shell.echo(stdout);
