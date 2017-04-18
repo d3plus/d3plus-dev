@@ -16,9 +16,9 @@
   This is a {{kindInThisContext}}
 {{~/if~}}
 {{~#if chainable}}, and is chainable with other methods of this Class{{/if~}}.
+{{~#if augments}} It extends all of the methods and functionality of {{>linked-type-list types=augments delimiter=", " }}.{{/if}}
+{{~#if implements}} It implements all of the methods and functionality of {{>linked-type-list types=implements delimiter=", " }}.{{/if}}
 
-{{>augments~}}
-{{>implements~}}
 {{>mixes~}}
 {{>default~}}
 {{>overrides~}}
