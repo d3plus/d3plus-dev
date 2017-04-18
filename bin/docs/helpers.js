@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+
 const shell = require("shelljs");
 const {name} = JSON.parse(shell.cat("package.json"));
 
@@ -20,13 +22,15 @@ exports.codeLink = meta => {
  OUTPUT:
  <p>Url: hi Sam, http://example.com <---- this is your href, your Age is: 20</p>
 */
-exports.x = expression => {
+exports.x = function(expression) {
+
+  const {augments, chainable, isExported, kind, scope} = this;
+  const imple = this.implements;
 
   try {
-    return eval(expression);
+    return eval(expression.replace("implements", "imple"));
   }
   catch (e) {
-    console.warn(`•Expression: {{x '${expression}'}}\n•JS-Error: ${e}\n•Context: ${this}`);
     return undefined;
   }
 
@@ -47,4 +51,6 @@ exports.x = expression => {
    {{/xif}}
  </p>
  */
-exports.xif =  (expression, options) => exports.x.apply(this, [expression, options]) ? options.fn(this) : options.inverse(this);
+exports.xif =  function(expression, options) {
+  return exports.x.apply(this, [expression, options]) ? options.fn(this) : options.inverse(this);
+};

@@ -18,7 +18,7 @@
 {{~#if chainable~}}, and is chainable with other methods of this Class.
 {{~else if augments~}}, and extends all of the methods and functionality of {{>linked-type-list types=augments delimiter=", " }}.
 {{~else if implements~}}, and implements all of the methods and functionality of {{>linked-type-list types=implements delimiter=", " }}.
-{{~else if "scope || isExported || kind === 'module'"~}}.{{~/if}}
+{{~else xif "scope || isExported || kind === 'module'"~}}.{{~/if}}
 
 
 {{>mixes~}}

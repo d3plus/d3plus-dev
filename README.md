@@ -53,7 +53,7 @@ This is a script accessible from the node environment.
 Generates the READEME.md documentation based on the JSDoc comments in the codebase. This script will overwrite README.md, but will not do any interaction with Github (commit, push, etc).
 
 
-This is a script accessible from the node environment.
+This is a script accessible from the node environment, and is chainable with other methods of this Class.
 
 ---
 
@@ -111,4 +111,4 @@ This is a script accessible from the node environment.
 
 ---
 
-###### <sub>Documentation generated on Tue, 18 Apr 2017 21:17:49 GMT</sub>
+###### <sub>Documentation generated on Tue, 18 Apr 2017 21:38:33 GMT</sub>
