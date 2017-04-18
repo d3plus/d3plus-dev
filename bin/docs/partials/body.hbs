@@ -10,8 +10,10 @@
   {{~/if~}}
 {{~else if isExported~}}
   This is an exported {{kind}}
-{{~else~}}
+{{~else if (equal kind "module") ~}}
   This is a script accessible from the node environment
+{{~else~}}
+  This is a {{kindInThisContext}}
 {{~/if~}}
 {{~#if chainable}}, and is chainable with other methods of this Class{{/if~}}.
 
