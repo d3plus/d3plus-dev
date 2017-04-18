@@ -1,4 +1,4 @@
-{{#if params}}
+{{#xif "params.length > 1"}}
 
 {{tableHead params "name|Param" "type|Type" "defaultvalue|Default" "description|Description" ~}}
 
@@ -9,4 +9,4 @@
 {{#if @col4}}{{{stripNewlines (inlineLinks description)}}} |{{/if}}
 {{/tableRow}}
 
-{{/if}}
+{{/xif}}

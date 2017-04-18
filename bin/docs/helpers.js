@@ -24,7 +24,7 @@ exports.codeLink = meta => {
 */
 exports.x = function(expression) {
 
-  const {augments, chainable, isExported, kind, scope} = this;
+  const {augments, chainable, isExported, kind, params, scope} = this;
   const imple = this.implements;
 
   try {
