@@ -23,6 +23,9 @@ notifications:
   email:
     on_success: never
     on_failure: always
+
+after_success:
+  nyc d3plus-test && nyc report --reporter=text-lcov | coveralls
 `).to(".travis.yml");
 
 };
