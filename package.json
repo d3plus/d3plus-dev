@@ -61,7 +61,7 @@
     "rollup-watch": "^3.2.2",
     "shelljs": "^0.7.5",
     "tape-run": "^3.0.0",
-    "uglify-js": "^2.7.5",
+    "uglify-js": "^3.0.0",
     "zora": "^0.3.0"
   },
   "devDependencies": {
