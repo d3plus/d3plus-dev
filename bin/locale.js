@@ -12,7 +12,7 @@ const log = require("./log")("compiling locales"),
 
 log.timer("compiling translations");
 const langs = ["en-US", "es-ES"];
-shell.exec(`i18next .. -r -l ${langs.join(",")} -f 'locale.t' --fileFilter '*.js' --directoryFilter 'd3plus-*,src' -o ../d3plus-common/src/locales`, {silent: true}, (code, stdout) => {
+shell.exec(`i18next .. -r -l ${langs.join(",")} -n d3plus -f 'locale.t' --fileFilter '*.js' --directoryFilter 'd3plus-*,src' -o ../d3plus-common/src/locales`, {silent: true}, (code, stdout) => {
   if (code) log.fail();
   else log.done();
   shell.echo(stdout);
