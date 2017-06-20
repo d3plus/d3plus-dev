@@ -55,7 +55,7 @@ if (shell.test("-d", "example")) {
       const title = h1 ? h1[1] : file.name.replace("example/", "").replace(".md", "");
       const url = `http://d3plus.org/${file.name.replace("example", `examples/${name}`).replace(".md", "/")}`;
       const suffix = now - file.ctime < week ? "<sup> ***New***</sup>"
-                   : now - file.mtime < week ? "<sup> ***Updated***</sup>" : "";
+        : now - file.mtime < week ? "<sup> ***Updated***</sup>" : "";
       return ` * [${title}](${url})${suffix}`;
     });
 
