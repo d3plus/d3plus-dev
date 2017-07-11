@@ -77,6 +77,7 @@ function addSection(syntax, contents, space = "") {
   if (syntax === "css") {
     matches.unshift(`body {
 ${space}    margin: 0;
+${space}    overflow: hidden;
 ${space}  }`);
   }
   if (matches.length) {
