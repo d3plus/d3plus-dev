@@ -21,10 +21,10 @@ module.exports = function(opts = {}) {
 
   const entry = {entry: "index.js", plugins, onwarn: () => {}};
   const config = {
+    amd: {id: name},
     banner,
     dest: `build/${name}${opts.deps ? ".full" : ""}.js`,
     format: "umd",
-    moduleId: name,
     moduleName: "d3plus",
     sourceMap: true,
     sourceMapFile: `build/${name}${opts.deps ? ".full" : ""}.js`
