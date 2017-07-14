@@ -1,13 +1,15 @@
 const chalk = require("chalk"),
       shell = require("shelljs");
 
-module.exports = function(name = "development script") {
+const {name, version} = JSON.parse(shell.cat("package.json"));
+
+module.exports = function(subtitle = "development script") {
   shell.exec("clear");
 
-  shell.echo(`
+  shell.echo(chalk`
 
-    ${chalk.bold.green("D3plus 2.0")}
-    ${chalk.green(name)}
+    {bold.rgb(55,125,71) ${name} v${version}}
+    {rgb(55,125,71) ${subtitle}}
 
 `);
 

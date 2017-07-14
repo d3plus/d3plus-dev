@@ -13,7 +13,7 @@ module.exports = function(name) {
   this.done = msg => {
     if (msg) message = msg;
     interval = clearInterval(interval);
-    shell.echo(`\r[ ${chalk.green("done")} ] ${message}`);
+    shell.echo(`\r[ ${chalk.rgb(55, 125, 71)("done")} ] ${message}`);
   };
 
   this.fail = msg => {
@@ -43,7 +43,7 @@ module.exports = function(name) {
         const index = (i + tick % frames.length) % frames.length;
         if (index < arr.length) arr[index] = f;
       });
-      process.stdout.write(`\r[ ${arr.join("")} ] ${message}`);
+      process.stdout.write(`\r[ ${chalk.yellow(arr.join(""))} ] ${message}`);
       tick++;
     }, 50);
 
