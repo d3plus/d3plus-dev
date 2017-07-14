@@ -201,10 +201,9 @@ else {
     shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
       if (code === 128) {
         log.done();
-
+        shell.cd(`../${name}`);
         log.warn("no examples found matching 'example/*.md' in root");
         log.exit();
-
         shell.exit(0);
       }
       else if (code) {
@@ -225,6 +224,7 @@ else {
             shell.exec("git push", () => {
               log.done();
               log.exit();
+              shell.cd(`../${name}`);
               shell.exit(0);
 
             });
