@@ -54,9 +54,9 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
       };
 
       const config = {
+        amd: {id: name},
         dest: "test/.bundle.js",
         format: "iife",
-        moduleId: name,
         moduleName: "d3plus"
       };
 
