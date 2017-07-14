@@ -1,16 +1,16 @@
 /* eslint no-unused-vars: 0 */
 
 const shell = require("shelljs");
-const {name} = JSON.parse(shell.cat("package.json"));
 
 exports.currentDate = () => new Date().toUTCString();
 
 exports.codeLink = meta => {
   const {filename, lineno, path} = meta;
   let folders = path.split("/");
-  const index = folders.indexOf(name);
+  const repo = folders.filter(folder => folder.includes("d3plus-"))[0];
+  const index = folders.indexOf(repo);
   folders = folders.slice(index + 1);
-  return `[<>](https://github.com/d3plus/${name}/blob/master${ folders.length ? `/${folders.join("/")}` : "" }/${filename}#L${lineno})`;
+  return `[<>](https://github.com/d3plus/${repo}/blob/master${ folders.length ? `/${folders.join("/")}` : "" }/${filename}#L${lineno})`;
 };
 
 /* a helper to execute javascript expressions

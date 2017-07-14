@@ -20,7 +20,6 @@
 {{~else if implements~}}, and implements all of the methods and functionality of {{>linked-type-list types=implements delimiter=", " }}.
 {{~else xif "scope || isExported || kind === 'module'"~}}.{{~/if}}
 
-
 {{>mixes~}}
 {{>default~}}
 {{>overrides~}}
@@ -42,6 +41,10 @@
 {{>todo~}}
 {{>params~}}
 {{>properties~}}
-{{>examples~}}
+{{#examples}}
+{{#if caption}}{{caption}}{{/if}}
+
+{{{inlineLinks example}}}
+{{/examples}}
 {{>member-index~}}
 {{>members~}}
