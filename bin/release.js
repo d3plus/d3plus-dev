@@ -9,6 +9,7 @@
 **/
 
 const asset = require("putasset"),
+      {execSync} = require("child_process"),
       release = require("grizzly"),
       shell = require("shelljs"),
       token = shell.env.GITHUB_TOKEN,
@@ -21,8 +22,7 @@ let minor = version.split(".");
 const prerelease = parseFloat(minor[0]) === 0;
 minor = minor.slice(0, minor.length - 1).join(".");
 
-const tests = shell.exec("d3plus-test", {silent: false});
-if (tests.code) shell.exit(tests.code);
+execSync("d3plus-test", {stdio: "inherit"});
 
 const rollup = require("./rollup");
 
@@ -34,85 +34,76 @@ function kill(code, stdout) {
 
 function finishRelease() {
 
-  log.timer("compiling examples");
-  shell.exec("d3plus-examples", (code, stdout) => {
-    if (code) kill(code, stdout);
+  execSync("d3plus-examples", {stdio: "inherit"});
+  execSync("d3plus-docs", {stdio: "inherit"});
 
-    log.timer("compiling documentation");
-    shell.exec("d3plus-docs", (code, stdout) => {
+  log.timer("compiling release notes");
+  shell.exec("git log --pretty=format:'* %s (%h)' `git describe --tags --abbrev=0`...HEAD", (code, stdout) => {
+    const body = stdout;
+
+    log.timer("publishing npm package");
+    shell.exec("npm publish ./", (code, stdout) => {
       if (code) kill(code, stdout);
 
-      log.timer("compiling release notes");
-      shell.exec("git log --pretty=format:'* %s (%h)' `git describe --tags --abbrev=0`...HEAD", (code, stdout) => {
-        const body = stdout;
+      log.timer("commiting all modified files for release");
+      shell.exec("git add --all", (code, stdout) => {
+        if (code) kill(code, stdout);
 
-        log.timer("publishing npm package");
-        shell.exec("npm publish ./", (code, stdout) => {
+        shell.exec(`git commit -m \"compiles v${version}\"`, (code, stdout) => {
           if (code) kill(code, stdout);
 
-          log.timer("commiting all modified files for release");
-          shell.exec("git add --all", (code, stdout) => {
+          log.timer("tagging latest commit");
+          shell.exec(`git tag v${version}`, (code, stdout) => {
             if (code) kill(code, stdout);
 
-            shell.exec(`git commit -m \"compiles v${version}\"`, (code, stdout) => {
+            log.timer("pushing to repository");
+            shell.exec("git push origin --follow-tags", (code, stdout) => {
               if (code) kill(code, stdout);
 
-              log.timer("tagging latest commit");
-              shell.exec(`git tag v${version}`, (code, stdout) => {
-                if (code) kill(code, stdout);
+              log.timer("publishing release notes");
+              release(token, {
+                repo: name,
+                user: "d3plus",
+                tag: `v${version}`,
+                name: `v${version}`,
+                body, prerelease
+              }, error => {
+                if (error) {
+                  log.fail();
+                  shell.echo(`repo: ${name}`);
+                  shell.echo(`tag/name: v${version}`);
+                  shell.echo(`body: ${body}`);
+                  shell.echo(`prerelease: ${prerelease}`);
+                  shell.echo(error.message);
+                  shell.exit(1);
+                }
+                else {
 
-                log.timer("pushing to repository");
-                shell.exec("git push origin --follow-tags", (code, stdout) => {
-                  if (code) kill(code, stdout);
-
-                  log.timer("publishing release notes");
-                  release(token, {
-                    repo: name,
-                    user: "d3plus",
-                    tag: `v${version}`,
-                    name: `v${version}`,
-                    body, prerelease
-                  }, error => {
-                    if (error) {
-                      log.fail();
-                      shell.echo(`repo: ${name}`);
-                      shell.echo(`tag/name: v${version}`);
-                      shell.echo(`body: ${body}`);
-                      shell.echo(`prerelease: ${prerelease}`);
-                      shell.echo(error.message);
-                      shell.exit(1);
-                    }
-                    else {
-
-                      if (shell.test("-f", `build/${name}.zip`)) {
-                        log.timer("attaching .zip distribution to release");
-                        asset(token, {
-                          repo: name,
-                          owner: "d3plus",
-                          tag: `v${version}`,
-                          filename: `build/${name}.zip`
-                        }, error => {
-                          if (error) {
-                            log.fail();
-                            shell.echo(error.message);
-                            shell.exit(1);
-                          }
-                          else {
-                            log.exit();
-                            shell.exit(0);
-                          }
-                        });
+                  if (shell.test("-f", `build/${name}.zip`)) {
+                    log.timer("attaching .zip distribution to release");
+                    asset(token, {
+                      repo: name,
+                      owner: "d3plus",
+                      tag: `v${version}`,
+                      filename: `build/${name}.zip`
+                    }, error => {
+                      if (error) {
+                        log.fail();
+                        shell.echo(error.message);
+                        shell.exit(1);
                       }
                       else {
                         log.exit();
                         shell.exit(0);
                       }
+                    });
+                  }
+                  else {
+                    log.exit();
+                    shell.exit(0);
+                  }
 
-                    }
-                  });
-
-                });
-
+                }
               });
 
             });
@@ -161,12 +152,15 @@ if (shell.test("-d", "src")) {
 
                 shell.exec(`git commit -m \"${name} v${version}\"`, code => {
 
-                  if (code) finishRelease();
+                  if (code) {
+                    shell.cd(`../${name}`);
+                    finishRelease();
+                  }
                   else {
 
                     shell.exec("git push", () => {
 
-                      shell.cd("-");
+                      shell.cd(`../${name}`);
                       finishRelease();
 
                     });
