@@ -11,7 +11,8 @@ const fs = require("fs"),
       port = 4000,
       screenshot = require("electron-screenshot-service"),
       server = require("live-server"),
-      shell = require("shelljs");
+      shell = require("shelljs"),
+      timeFormat = require("d3-time-format").timeFormat("%B %d, %Y");
 
 shell.config.silent = true;
 const {name, version} = JSON.parse(shell.cat("package.json"));
@@ -23,6 +24,8 @@ function getVar(contents, key, def = 0, num = true) {
   const r = new RegExp(`\\[${key}\\]: ([0-9]+)`, "g").exec(contents);
   return r ? num ? parseFloat(r[1], 10) : r[1] : def;
 }
+
+const time = new Date();
 
 function ssPromise(file) {
 
@@ -56,6 +59,8 @@ function ssPromise(file) {
 title: ${title}
 width: ${width}
 height: ${height}
+time: ${time.getTime()}
+date: ${timeFormat(time)}
 ---\n\n${mdc}`).to(newFile.replace(".html", "index.md"));
         shell.cp(file.replace("html", "png"), newFile.replace(".html", "thumb.png"));
 
