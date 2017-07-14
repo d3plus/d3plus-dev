@@ -143,9 +143,9 @@ shell.exec(`jsdoc2md '+(bin|src)/**/*.+(js|jsx)' ${jsdocConfig} -t ${ template }
           }).replace(/https:\/\/github\.com\/d3plus\/d3plus-[a-z]+#/g, "#");
           shell.mkdir("-p", `../d3plus-website/_docs/${kind}`);
           new shell.ShellString(`---
-  name: ${name}
-  kind: ${kind}
-  ---
+name: ${name}
+kind: ${kind}
+---
 
   ${output}`).to(`../d3plus-website/_docs/${kind}/${name}.md`);
         }
