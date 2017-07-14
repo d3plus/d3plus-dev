@@ -33,6 +33,7 @@ This script will compile 2 builds, one with all dependencies includes (full) and
 
 
 This is a script accessible from the node environment.
+
 ---
 
 <a name="module_d3plus-dev"></a>
@@ -42,6 +43,7 @@ Initializes the development server, which will open a connection on `localhost:4
 
 
 This is a script accessible from the node environment.
+
 ---
 
 <a name="module_d3plus-docs"></a>
@@ -51,6 +53,7 @@ Generates the READEME.md documentation based on the JSDoc comments in the codeba
 
 
 This is a script accessible from the node environment.
+
 ---
 
 <a name="module_d3plus-env"></a>
@@ -60,6 +63,7 @@ This script will create all of the repository files shared across d3plus modules
 
 
 This is a script accessible from the node environment.
+
 ---
 
 <a name="module_d3plus-examples"></a>
@@ -69,6 +73,7 @@ Parses any markdown files in the `./example` directory and transforms them into 
 
 
 This is a script accessible from the node environment.
+
 ---
 
 <a name="module_d3plus-locale"></a>
@@ -82,6 +87,7 @@ This is a script accessible from the node environment.
 
 - [ ] Potentially move this script to d3plus-common?
 
+
 ---
 
 <a name="module_d3plus-release"></a>
@@ -91,6 +97,7 @@ If the version number in the package.json has been bumped, this script will comp
 
 
 This is a script accessible from the node environment.
+
 ---
 
 <a name="module_d3plus-test"></a>
@@ -100,8 +107,9 @@ Based on the .eslintrc file provided by the [d3plus-env](#module_d3plus-env) scr
 
 
 This is a script accessible from the node environment.
+
 ---
 
 
 
-###### <sub>Documentation generated on Fri, 14 Jul 2017 16:00:02 GMT</sub>
+###### <sub>Documentation generated on Fri, 14 Jul 2017 16:42:07 GMT</sub>
