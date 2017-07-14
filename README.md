@@ -24,7 +24,6 @@ If you use NPM, run `npm install d3plus-dev --save`. Otherwise, download the [la
 * [d3plus-locale](#module_d3plus-locale) - Parses source code for uses of i18next.
 * [d3plus-release](#module_d3plus-release) - Publishes a release for a module.
 * [d3plus-test](#module_d3plus-test) - Runs linting and unit/browser tests on source files.
-
 ---
 
 <a name="module_d3plus-build"></a>
@@ -34,7 +33,6 @@ This script will compile 2 builds, one with all dependencies includes (full) and
 
 
 This is a script accessible from the node environment.
-
 ---
 
 <a name="module_d3plus-dev"></a>
@@ -44,7 +42,6 @@ Initializes the development server, which will open a connection on `localhost:4
 
 
 This is a script accessible from the node environment.
-
 ---
 
 <a name="module_d3plus-docs"></a>
@@ -54,7 +51,6 @@ Generates the READEME.md documentation based on the JSDoc comments in the codeba
 
 
 This is a script accessible from the node environment.
-
 ---
 
 <a name="module_d3plus-env"></a>
@@ -64,7 +60,6 @@ This script will create all of the repository files shared across d3plus modules
 
 
 This is a script accessible from the node environment.
-
 ---
 
 <a name="module_d3plus-examples"></a>
@@ -74,7 +69,6 @@ Parses any markdown files in the `./example` directory and transforms them into 
 
 
 This is a script accessible from the node environment.
-
 ---
 
 <a name="module_d3plus-locale"></a>
@@ -84,7 +78,6 @@ This script will scan every locally installed d3plus module and construct langua
 
 
 This is a script accessible from the node environment.
-
 **Todo**
 
 - [ ] Potentially move this script to d3plus-common?
@@ -98,7 +91,6 @@ If the version number in the package.json has been bumped, this script will comp
 
 
 This is a script accessible from the node environment.
-
 ---
 
 <a name="module_d3plus-test"></a>
@@ -108,7 +100,8 @@ Based on the .eslintrc file provided by the [d3plus-env](#module_d3plus-env) scr
 
 
 This is a script accessible from the node environment.
-
 ---
 
-###### <sub>Documentation generated on Fri, 14 Jul 2017 00:17:52 GMT</sub>
+
+
+###### <sub>Documentation generated on Fri, 14 Jul 2017 05:13:19 GMT</sub>
