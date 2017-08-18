@@ -20,6 +20,10 @@ const {name, version} = JSON.parse(shell.cat("package.json"));
 let minor = version.split(".");
 minor = minor.slice(0, minor.length - 1).join(".");
 
+/**
+    @desc Gets a var from markdown header
+    @private
+*/
 function getVar(contents, key, def = 0, num = true) {
   const r = new RegExp(`\\[${key}\\]: ([0-9]+)`, "g").exec(contents);
   return r ? num ? parseFloat(r[1], 10) : r[1] : def;
@@ -27,6 +31,19 @@ function getVar(contents, key, def = 0, num = true) {
 
 const time = new Date();
 
+/**
+    @desc Detects if a file is new or updated.
+    @private
+*/
+function updatedFile(file) {
+  return !shell.exec(`git ls-files ${file}`, {silent: true}).stdout &&
+          shell.exec(`git diff ${file}`, {silent: true}).stdout;
+}
+
+/**
+    @desc Takes a screenshot of an example.
+    @private
+*/
 function ssPromise(file) {
 
   const contents = shell.cat(file.replace("html", "md")),
@@ -72,6 +89,10 @@ date: ${timeFormat(time)}
 
 }
 
+/**
+    @desc Generates a section of an HTML document based on a markdown code block.
+    @private
+*/
 function addSection(syntax, contents, space = "") {
   const re = new RegExp(`\`\`\`${syntax}\\n((.|\\n)*?)\\n\`\`\``, "g");
   const matches = [];
@@ -99,7 +120,7 @@ ${space}`;
 if (shell.test("-d", "example")) {
 
   log.timer("converting markdown to html");
-  const examples = [];
+  const examples = [], present = [];
   shell.ls("example/*.md").forEach(file => {
 
     const contents = shell.cat(file),
@@ -124,14 +145,13 @@ if (shell.test("-d", "example")) {
 </html>
 `).to(filename);
 
-    examples.push(filename);
+    present.push(filename.replace("example/", "").replace(".html", ""));
+    if (updatedFile(file)) examples.push(filename);
 
   });
 
   log.timer("taking screenshots");
   server.start({logLevel: 0, noBrowser: true, port}).on("listening", () => {
-
-    shell.rm("-rf", `../d3plus-website/_examples/${name}`);
 
     Promise.all(examples.map(ssPromise)).then(() => {
 
@@ -139,6 +159,12 @@ if (shell.test("-d", "example")) {
 
       if (shell.test("-d", "../d3plus-website")) {
         log.timer("uploading examples to d3plus.org");
+
+        shell.ls("-d", `../d3plus-website/_examples/${name}/*`).forEach(example => {
+          const title = example.replace(`../d3plus-website/_examples/${name}/`, "");
+          if (!present.includes(title)) shell.rm("-rf", example);
+        });
+
         shell.cd("../d3plus-website");
         shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
 
