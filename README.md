@@ -112,4 +112,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Fri, 18 Aug 2017 21:01:55 GMT</sub>
+###### <sub>Documentation generated on Sat, 19 Aug 2017 19:48:37 GMT</sub>
