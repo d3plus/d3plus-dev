@@ -36,8 +36,8 @@ const time = new Date();
     @private
 */
 function updatedFile(file) {
-  return !shell.exec(`git ls-files ${file}`, {silent: true}).stdout &&
-          shell.exec(`git diff ${file}`, {silent: true}).stdout;
+  return !shell.exec(`git ls-files ${file}`, {silent: true}).stdout.length ||
+          shell.exec(`git diff ${file}`, {silent: true}).stdout.length;
 }
 
 /**
