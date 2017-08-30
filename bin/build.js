@@ -18,19 +18,17 @@ function kill(code, stdout) {
   shell.exit(code);
 }
 
-log.timer("compile builds");
 rollup().then(() => {
-  log.timer("compile full builds");
   rollup({deps: true}).then(() => {
 
-    log.timer("uglify builds");
+    log.timer("uglifying builds");
     shell.exec(`uglifyjs build/${name}.js -m --comments -o build/${name}.min.js`, (code, stdout) => {
       if (code) kill(code, stdout);
 
       shell.exec(`uglifyjs build/${name}.full.js -m --comments -o build/${name}.full.min.js`, (code, stdout) => {
         if (code) kill(code, stdout);
 
-        log.timer("create .zip distribution");
+        log.timer("creating .zip distribution");
         const files = ["LICENSE", "README.md",
           `build/${name}.js`, `build/${name}.min.js`,
           `build/${name}.full.js`, `build/${name}.full.min.js`
