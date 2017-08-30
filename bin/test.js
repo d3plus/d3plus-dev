@@ -69,11 +69,11 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
               log.done();
               shell.echo("");
 
-              shell.exec("cat test/.bundle.js | tape-run --render='faucet'", code => {
+              shell.exec("cat test/.bundle.js | tape-run --render='faucet'", (code, stdout) => {
 
                 shell.rm("test/.index.js");
                 shell.rm("test/.bundle.js");
-                shell.echo("");
+                shell.echo(code ? stdout : "");
                 shell.exit(code);
 
               });
