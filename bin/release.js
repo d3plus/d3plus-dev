@@ -34,6 +34,7 @@ function kill(code, stdout) {
 
 function finishRelease() {
 
+  log.done();
   execSync("d3plus-examples", {stdio: "inherit"});
   execSync("d3plus-docs", {stdio: "inherit"});
 
