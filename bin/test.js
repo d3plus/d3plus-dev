@@ -41,8 +41,8 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
   .run();
 `).to("test/.index.js");
 
-      const entry = {
-        entry: "test/.index.js",
+      const input = {
+        input: "test/.index.js",
         plugins: [
           json(),
           deps({jsnext: true, preferBuiltins: false}),
@@ -53,17 +53,17 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
         ]
       };
 
-      const config = {
+      const output = {
         amd: {id: name},
-        dest: "test/.bundle.js",
+        file: "test/.bundle.js",
         format: "iife",
-        moduleName: "d3plus"
+        name: "d3plus"
       };
 
-      rollup.rollup(entry)
+      rollup.rollup(input)
         .then(bundle => {
 
-          bundle.write(config)
+          bundle.write(output)
             .then(() => {
 
               log.done();
