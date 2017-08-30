@@ -2,11 +2,6 @@ import zora from "zora";
 import {strip, textSplit} from "d3plus-text";
 
 export default zora()
-  .test("root", assert => {
-
-    assert.equal(true, true, "root test directory");
-
-  })
   .test("strip", assert => {
 
     assert.equal(strip("one two"), "one-two", "Space");
