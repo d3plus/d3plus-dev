@@ -4,8 +4,8 @@ module.exports = log => {
 
   log.timer("creating/updating .npmignore");
   new shell.ShellString(`build/*.zip
-example/
-test/
+example
+dev
 .eslintrc
 .gitignore
 .travis.yml
