@@ -26,7 +26,9 @@ shell.exec("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js te
   else {
     log.done();
 
-    const tests = shell.ls("-R", "test/**/*.js", {silent: true});
+    shell.config.silent = true;
+    const tests = shell.ls("-R", "test/**/*.js");
+    shell.config.silent = false;
     if (tests.length) {
 
       log.timer("compiling tests");
