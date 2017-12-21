@@ -12,6 +12,13 @@ const eslint = require("./eslintrc.json"),
       log = require("../log")("environment setup"),
       shell = require("shelljs");
 
+log.timer("modifying package.json");
+const pkg = JSON.parse(shell.cat("package.json"));
+pkg.main = `build/${pkg.name}.js`
+pkg.module = "es/index";
+pkg["jsnext:main"] = "es/index";
+new shell.ShellString(JSON.stringify(pkg, null, 2)).to("package.json");
+
 log.timer("creating/updating .eslintrc");
 new shell.ShellString(JSON.stringify(eslint, null, 2)).to(".eslintrc");
 
