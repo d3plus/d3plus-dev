@@ -26,10 +26,10 @@ function kill(code, stdout) {
 log.timer("transpiling ES6 for modules");
 shell.rm("-rf", "es");
 shell.mkdir("-p", "es");
-shell.exec("buble -i src --no modules -m -o es/src", (code, stdout) => {
+shell.exec("buble -i index.js --no modules -m -o es/index.js", (code, stdout) => {
   if (code) kill(code, stdout);
 
-  shell.exec("buble -i index.js --no modules -m -o es/index.js", (code, stdout) => {
+  shell.exec("buble -i src --no modules -m -o es/src", (code, stdout) => {
     if (code) kill(code, stdout);
 
     rollup().then(() => {
