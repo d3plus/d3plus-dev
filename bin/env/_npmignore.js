@@ -6,6 +6,8 @@ module.exports = log => {
   new shell.ShellString(`build/*.zip
 example
 dev
+src
+test
 .eslintrc
 .gitignore
 .travis.yml
