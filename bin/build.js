@@ -24,29 +24,36 @@ function kill(code, stdout) {
 }
 
 log.timer("transpiling ES6 for modules");
-shell.exec("buble -i src --no modules -m -o es", (code, stdout) => {
+shell.rm("-rf", "es");
+shell.mkdir("-p", "es");
+shell.exec("buble -i src --no modules -m -o es/src", (code, stdout) => {
   if (code) kill(code, stdout);
 
-  rollup().then(() => {
-    rollup({deps: true}).then(() => {
+  shell.exec("buble -i index.js --no modules -m -o es/index.js", (code, stdout) => {
+    if (code) kill(code, stdout);
 
-      log.timer("uglifying builds");
-      shell.exec(`uglifyjs build/${name}.js -m --comments -o build/${name}.min.js`, (code, stdout) => {
-        if (code) kill(code, stdout);
+    rollup().then(() => {
+      rollup({deps: true}).then(() => {
 
-        shell.exec(`uglifyjs build/${name}.full.js -m --comments -o build/${name}.full.min.js`, (code, stdout) => {
+        log.timer("uglifying builds");
+        shell.exec(`uglifyjs build/${name}.js -m --comments -o build/${name}.min.js`, (code, stdout) => {
           if (code) kill(code, stdout);
 
-          log.timer("creating .zip distribution");
-          const files = ["LICENSE", "README.md",
-            `build/${name}.js`, `build/${name}.min.js`,
-            `build/${name}.full.js`, `build/${name}.full.min.js`
-          ];
-          shell.exec(`rm -f build/${name}.zip && zip -j -q build/${name}.zip -- ${files.join(" ")}`, (code, stdout) => {
+          shell.exec(`uglifyjs build/${name}.full.js -m --comments -o build/${name}.full.min.js`, (code, stdout) => {
             if (code) kill(code, stdout);
 
-            log.exit();
-            shell.exit(0);
+            log.timer("creating .zip distribution");
+            const files = ["LICENSE", "README.md",
+              `build/${name}.js`, `build/${name}.min.js`,
+              `build/${name}.full.js`, `build/${name}.full.min.js`
+            ];
+            shell.exec(`rm -f build/${name}.zip && zip -j -q build/${name}.zip -- ${files.join(" ")}`, (code, stdout) => {
+              if (code) kill(code, stdout);
+
+              log.exit();
+              shell.exit(0);
+
+            });
 
           });
 
@@ -55,6 +62,7 @@ shell.exec("buble -i src --no modules -m -o es", (code, stdout) => {
       });
 
     });
+
   });
 
 });
