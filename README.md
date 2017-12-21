@@ -97,4 +97,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Thu, 21 Dec 2017 20:09:59 GMT</sub>
+###### <sub>Documentation generated on Thu, 21 Dec 2017 20:31:21 GMT</sub>
