@@ -11,6 +11,7 @@ test
 .eslintrc
 .gitignore
 .travis.yml
+index.js
 npm-debug.log
 `).to(".npmignore");
 
