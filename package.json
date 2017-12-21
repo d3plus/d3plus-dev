@@ -65,5 +65,12 @@
     "d3plus-text": "^0.9.22"
   },
   "module": "es/index",
-  "jsnext:main": "es/index"
+  "jsnext:main": "es/index",
+  "files": [
+    "bin",
+    "build/d3plus-dev.js",
+    "build/d3plus-dev.js.map",
+    "build/d3plus-dev.min.js",
+    "es"
+  ]
 }

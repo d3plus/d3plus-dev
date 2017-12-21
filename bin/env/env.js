@@ -17,13 +17,20 @@ const pkg = JSON.parse(shell.cat("package.json"));
 pkg.main = `build/${pkg.name}.js`;
 pkg.module = "es/index";
 pkg["jsnext:main"] = "es/index";
+pkg.files = [
+  "bin",
+  `build/${pkg.name}.js`,
+  `build/${pkg.name}.js.map`,
+  `build/${pkg.name}.min.js`,
+  "es"
+];
 new shell.ShellString(JSON.stringify(pkg, null, 2)).to("package.json");
 
 log.timer("creating/updating .eslintrc");
 new shell.ShellString(JSON.stringify(eslint, null, 2)).to(".eslintrc");
 
 require("./_gitignore.js")(log);
-require("./_npmignore.js")(log);
+shell.rm(".npmignore");
 require("./_travis.js")(log);
 require("./_LICENSE.js")(log);
 require("./_ISSUE_TEMPLATE.js")(log);
