@@ -6,6 +6,7 @@ module.exports = log => {
   new shell.ShellString(`.DS_Store
 build
 dev
+es
 example/**/*.html
 node_modules
 npm-debug.log
