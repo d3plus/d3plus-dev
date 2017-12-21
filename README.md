@@ -9,7 +9,7 @@ A collection of scripts for developing D3plus modules.
 If you use NPM, run `npm install d3plus-dev --save`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-dev/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-dev.v0.4.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-dev.v0.5.full.min.js"></script>
 ```
 
 
@@ -21,7 +21,6 @@ If you use NPM, run `npm install d3plus-dev --save`. Otherwise, download the [la
 * [d3plus-docs](#module_d3plus-docs) - Generates documentation based on code comments.
 * [d3plus-env](#module_d3plus-env) - Creates/updates shares repository files and issue labels.
 * [d3plus-examples](#module_d3plus-examples) - Generates example images and HTML.
-* [d3plus-locale](#module_d3plus-locale) - Parses source code for uses of i18next.
 * [d3plus-release](#module_d3plus-release) - Publishes a release for a module.
 * [d3plus-test](#module_d3plus-test) - Runs linting and unit/browser tests on source files.
 ---
@@ -76,20 +75,6 @@ This is a script accessible from the node environment.
 
 ---
 
-<a name="module_d3plus-locale"></a>
-#### **d3plus-locale** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/locale.js#L3)
-
-This script will scan every locally installed d3plus module and construct language JSON for each supported localization.
-
-
-This is a script accessible from the node environment.
-**Todo**
-
-- [ ] Potentially move this script to d3plus-common?
-
-
----
-
 <a name="module_d3plus-release"></a>
 #### **d3plus-release** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/release.js#L5)
 
@@ -112,4 +97,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Wed, 15 Nov 2017 22:32:34 GMT</sub>
+###### <sub>Documentation generated on Thu, 21 Dec 2017 19:31:16 GMT</sub>
