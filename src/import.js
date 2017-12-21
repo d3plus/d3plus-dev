@@ -1,3 +1,3 @@
-import {strip} from "d3plus-text";
+import {uuid} from "d3plus-common";
 
-export default strip("împort");
+export default uuid();
