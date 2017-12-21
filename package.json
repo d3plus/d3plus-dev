@@ -36,7 +36,6 @@
     "docs": "d3plus-docs",
     "env": "d3plus-env",
     "examples": "d3plus-examples",
-    "locale": "d3plus-locale",
     "release": "d3plus-release",
     "test": "d3plus-test"
   },
@@ -49,7 +48,6 @@
     "faucet": "0.0.1",
     "github-issues-label-sync": "^2.1.0",
     "grizzly": "^3.0.0",
-    "i18next-parser": "^0.12.0",
     "jsdoc-to-markdown": "^3.0.0",
     "live-server": "^1.1.0",
     "putasset": "^3.0.0",
