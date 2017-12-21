@@ -23,8 +23,7 @@ const prerelease = parseFloat(minor[0]) === 0;
 minor = minor.slice(0, minor.length - 1).join(".");
 
 execSync("d3plus-test", {stdio: "inherit"});
-
-const rollup = require("./rollup");
+execSync("d3plus-build", {stdio: "inherit"});
 
 function kill(code, stdout) {
   log.fail();
@@ -121,72 +120,39 @@ function finishRelease() {
 
 }
 
-if (shell.test("-d", "src")) {
+if (shell.test("-d", "../d3plus-website")) {
+  log.timer("uploading builds to d3plus.org");
+  shell.cp(`build/${name}.js`, `../d3plus-website/js/${name}.v${minor}.js`);
+  shell.cp(`build/${name}.full.js`, `../d3plus-website/js/${name}.v${minor}.full.js`);
+  shell.cp(`build/${name}.min.js`, `../d3plus-website/js/${name}.v${minor}.min.js`);
+  shell.cp(`build/${name}.full.min.js`, `../d3plus-website/js/${name}.v${minor}.full.min.js`);
+  shell.cd("../d3plus-website");
+  shell.exec(`git add js/${name}.v${minor}.js js/${name}.v${minor}.min.js js/${name}.v${minor}.full.js js/${name}.v${minor}.full.min.js`, (code, stdout) => {
+    if (code) kill(code, stdout);
 
-  rollup().then(() => {
-    rollup({deps: true}).then(() => {
+    shell.exec(`git commit -m \"${name} v${version}\"`, code => {
 
-      log.timer("uglify builds");
-      shell.exec(`uglifyjs build/${name}.js -m --comments -o build/${name}.min.js`, (code, stdout) => {
-        if (code) kill(code, stdout);
+      if (code) {
+        shell.cd(`../${name}`);
+        finishRelease();
+      }
+      else {
 
-        shell.exec(`uglifyjs build/${name}.full.js -m --comments -o build/${name}.full.min.js`, (code, stdout) => {
-          if (code) kill(code, stdout);
+        shell.exec("git push", () => {
 
-          log.timer("create .zip distribution");
-          const files = ["LICENSE", "README.md",
-            `build/${name}.js`, `build/${name}.min.js`,
-            `build/${name}.full.js`, `build/${name}.full.min.js`
-          ];
-          shell.exec(`rm -f build/${name}.zip && zip -j -q build/${name}.zip -- ${files.join(" ")}`, (code, stdout) => {
-            if (code) kill(code, stdout);
-
-            if (shell.test("-d", "../d3plus-website")) {
-              log.timer("uploading builds to d3plus.org");
-              shell.cp(`build/${name}.js`, `../d3plus-website/js/${name}.v${minor}.js`);
-              shell.cp(`build/${name}.full.js`, `../d3plus-website/js/${name}.v${minor}.full.js`);
-              shell.cp(`build/${name}.min.js`, `../d3plus-website/js/${name}.v${minor}.min.js`);
-              shell.cp(`build/${name}.full.min.js`, `../d3plus-website/js/${name}.v${minor}.full.min.js`);
-              shell.cd("../d3plus-website");
-              shell.exec(`git add js/${name}.v${minor}.js js/${name}.v${minor}.min.js js/${name}.v${minor}.full.js js/${name}.v${minor}.full.min.js`, (code, stdout) => {
-                if (code) kill(code, stdout);
-
-                shell.exec(`git commit -m \"${name} v${version}\"`, code => {
-
-                  if (code) {
-                    shell.cd(`../${name}`);
-                    finishRelease();
-                  }
-                  else {
-
-                    shell.exec("git push", () => {
-
-                      shell.cd(`../${name}`);
-                      finishRelease();
-
-                    });
-
-                  }
-
-                });
-
-              });
-            }
-            else {
-              log.done();
-              log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
-              finishRelease();
-            }
-
-          });
+          shell.cd(`../${name}`);
+          finishRelease();
 
         });
 
-      });
+      }
 
     });
 
   });
-
 }
-else finishRelease();
+else {
+  log.done();
+  log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
+  finishRelease();
+}
