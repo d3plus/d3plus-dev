@@ -1,6 +1,6 @@
 # d3plus-dev
 
-[![NPM Release](http://img.shields.io/npm/v/d3plus-dev.svg?style=flat)](https://www.npmjs.org/package/d3plus-dev) [![Build Status](https://travis-ci.org/d3plus/d3plus-dev.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-dev) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-dev.svg?style=flat)](https://david-dm.org/d3plus/d3plus-dev) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat)](https://gitter.im/d3plus/)
+[![NPM Release](http://img.shields.io/npm/v/d3plus-dev.svg?style=flat)](https://www.npmjs.org/package/d3plus-dev) [![Build Status](https://travis-ci.org/d3plus/d3plus-dev.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-dev) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-dev.svg?style=flat)](https://david-dm.org/d3plus/d3plus-dev) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat)](https://gitter.im/d3plus/) [![1.0 Progress](https://img.shields.io/badge/1.0_Project-4%2F5-yellow.svg?style=flat)](https://github.com/d3plus/d3plus-dev/projects/1)
 
 A collection of scripts for developing D3plus modules.
 
@@ -53,6 +53,12 @@ Generates the READEME.md documentation based on the JSDoc comments in the codeba
 
 This is a script accessible from the node environment.
 
+
+<a name="module_d3plus-docs..finishDocs" href="#module_d3plus-docs..finishDocs">#</a> d3plus.~**finishDocs**() [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/docs/docs.js#L66)
+
+
+This is a inner method of [<code>d3plus-docs</code>](#module_d3plus-docs).
+
 ---
 
 <a name="module_d3plus-env"></a>
@@ -97,4 +103,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Tue, 16 Jan 2018 00:32:10 GMT</sub>
+###### <sub>Documentation generated on Tue, 16 Jan 2018 01:05:36 GMT</sub>
