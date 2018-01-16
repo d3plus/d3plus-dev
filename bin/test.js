@@ -9,6 +9,7 @@
 const buble = require("rollup-plugin-buble"),
       commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),
+      execAsync = require("./execAsync"),
       json = require("rollup-plugin-json"),
       log = require("./log")("testing suite"),
       rollup = require("rollup"),
@@ -16,19 +17,17 @@ const buble = require("rollup-plugin-buble"),
       {name} = JSON.parse(shell.cat("package.json"));
 
 log.timer("linting code");
-shell.exec("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js test/*.js test/**/*.js", {silent: true}, (code, stdout) => {
 
-  if (code) {
-    log.fail();
-    shell.echo(stdout);
-    shell.exit(code);
-  }
-  else {
+execAsync("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js test/*.js test/**/*.js", {silent: true})
+  .then(stdout => {
+
     log.done();
+    shell.echo(stdout);
 
     shell.config.silent = true;
     const tests = shell.ls("-R", "test/**/*.js");
     shell.config.silent = false;
+
     if (tests.length) {
 
       log.timer("compiling tests");
@@ -63,24 +62,21 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
       };
 
       rollup.rollup(input)
-        .then(bundle => {
+        .then(bundle => bundle.write(output))
+        .then(() => {
 
-          bundle.write(output)
-            .then(() => {
+          log.done();
+          shell.echo("");
 
-              log.done();
-              shell.echo("");
+          return execAsync("cat test/.bundle.js | tape-run --render='faucet'");
 
-              shell.exec("cat test/.bundle.js | tape-run --render='faucet'", (code, stdout) => {
+        })
+        .then(() => {
 
-                shell.rm("test/.index.js");
-                shell.rm("test/.bundle.js");
-                shell.echo(code ? stdout : "");
-                shell.exit(code);
-
-              });
-
-            });
+          shell.rm("test/.index.js");
+          shell.rm("test/.bundle.js");
+          shell.echo("");
+          shell.exit(0);
 
         })
         .catch(err => {
@@ -96,6 +92,9 @@ ${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
       shell.exit(0);
     }
 
-  }
-
-});
+  })
+  .catch(err => {
+    log.fail(err);
+    log.exit();
+    shell.exit(1);
+  });
