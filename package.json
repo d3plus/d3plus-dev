@@ -48,7 +48,7 @@
     "github": "^13.1.0",
     "github-issues-label-sync": "^2.1.0",
     "grizzly": "^3.0.0",
-    "jsdoc-to-markdown": "^3.0.0",
+    "jsdoc-to-markdown": "^4.0.1",
     "live-server": "^1.1.0",
     "putasset": "^3.0.0",
     "rollup": "^0.55.3",
