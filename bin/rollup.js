@@ -48,6 +48,8 @@ module.exports = function(opts = {}) {
         log.done(`bundled ${output.file} in ${e.duration}ms`);
         if (opts.watch) log.timer("watching for changes...");
         return undefined;
+      case "CIRCULAR_DEPENDENCY":
+        return undefined;
       case "ERROR":
       case "FATAL":
         log.fail();
