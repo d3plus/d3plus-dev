@@ -9,7 +9,7 @@ A collection of scripts for developing D3plus modules.
 If you use NPM, run `npm install d3plus-dev --save`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-dev/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-dev.v0.5.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-dev.v0.6.full.min.js"></script>
 ```
 
 
@@ -103,4 +103,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Tue, 16 Jan 2018 01:23:13 GMT</sub>
+###### <sub>Documentation generated on Thu, 22 Feb 2018 18:36:48 GMT</sub>
