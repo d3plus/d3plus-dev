@@ -33,17 +33,24 @@ execAsync("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js tes
       log.timer("compiling tests");
       tests.reverse();
 
-      new shell.ShellString(`
-import zora from "zora";
-${ tests.map((file, i) => `import test${i} from "./${ file.slice(5) }";`).join("\n") }
-
-zora()
-${ tests.map((file, i) => `  .test(test${i})`).join("\n") }
-  .run();
-`).to("test/.index.js");
+      new shell.ShellString(tests.map((file, i) => `import test${i} from "./${ file.slice(5) }";`).join("\n"))
+        .to("test/.index.js");
 
       const input = {
         input: "test/.index.js",
+        onwarn: e => {
+          switch (e.code) {
+            case "CIRCULAR_DEPENDENCY":
+              return undefined;
+            case "ERROR":
+            case "FATAL":
+              log.fail();
+              shell.echo(`bundle error in '${e.error.id}':`);
+              return shell.echo(e.error);
+            default:
+              return undefined;
+          }
+        },
         plugins: [
           json(),
           deps({jsnext: true, preferBuiltins: false}),

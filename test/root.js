@@ -1,8 +1,9 @@
-import zora from "zora";
+import test from "zora";
 
-export default zora()
-  .test("root", assert => {
+test("root", assert => {
 
-    assert.equal(true, true, "root test directory");
+  assert.equal(true, true, "root test directory");
 
-  });
+});
+
+export default test;

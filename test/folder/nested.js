@@ -1,8 +1,9 @@
-import zora from "zora";
+import test from "zora";
 
-export default zora()
-  .test("nested", assert => {
+test("nested", assert => {
 
-    assert.equal(true, true, "nested test directory");
+  assert.equal(true, true, "nested test directory");
 
-  });
+});
+
+export default test;
