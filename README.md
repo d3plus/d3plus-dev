@@ -1,6 +1,6 @@
 # d3plus-dev
 
-[![NPM Release](http://img.shields.io/npm/v/d3plus-dev.svg?style=flat)](https://www.npmjs.org/package/d3plus-dev) [![Build Status](https://travis-ci.org/d3plus/d3plus-dev.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-dev) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-dev.svg?style=flat)](https://david-dm.org/d3plus/d3plus-dev) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/) [![1.0 progress](https://img.shields.io/badge/1.0_progress-80%25-yellowgreen.svg?style=flat)](https://github.com/d3plus/d3plus-dev/projects/1)
+[![NPM Release](http://img.shields.io/npm/v/d3plus-dev.svg?style=flat)](https://www.npmjs.org/package/d3plus-dev) [![Build Status](https://travis-ci.org/d3plus/d3plus-dev.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-dev) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-dev.svg?style=flat)](https://david-dm.org/d3plus/d3plus-dev) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/) [![1.0 progress](https://img.shields.io/badge/1.0_progress-83%25-yellowgreen.svg?style=flat)](https://github.com/d3plus/d3plus-dev/projects/1)
 
 A collection of scripts for developing D3plus modules.
 
@@ -103,4 +103,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Thu, 22 Feb 2018 18:36:48 GMT</sub>
+###### <sub>Documentation generated on Tue, 27 Feb 2018 14:50:24 GMT</sub>
