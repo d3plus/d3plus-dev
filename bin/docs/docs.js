@@ -48,8 +48,8 @@ repo.projects
         .then(res => {
           Promise.all(res.data.map(c => repo.projects.getProjectCards({column_id: c.id}).then(res => res.data)))
             .then(columns => {
-              const total = columns[2].length;
-              const complete = total - columns[0].length - columns[1].length;
+              const total = columns[0].length + columns[1].length + columns[2].length;
+              const complete = columns[2].length;
               const percent = complete / total;
               const color = percent === 1 ? "brightgreen"
                 : percent > 0.9 ? "green"
