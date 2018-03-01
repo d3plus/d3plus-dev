@@ -79,10 +79,7 @@ function finishRelease() {
     })
     .then(release => {
       releaseUrl = release.data.upload_url;
-      return fs.statAsync(`build/${name}.zip`);
-    })
-    .then(stat => {
-      zipSize = stat.size;
+      zipSize = fs.statSync(`build/${name}.zip`).size;
 
       return github.repos.uploadAsset({
         url: releaseUrl,
