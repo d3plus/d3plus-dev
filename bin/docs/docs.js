@@ -6,7 +6,7 @@
     @desc Generates the READEME.md documentation based on the JSDoc comments in the codebase. This script will overwrite README.md, but will not do any interaction with Github (commit, push, etc).
 **/
 
-const Github = require("github"),
+const github = require("@octokit/rest")(),
       jsdoc2md = require("jsdoc-to-markdown"),
       log = require("../log")("documentation"),
       shell = require("shelljs"),
@@ -27,13 +27,9 @@ function getVar(contents, key, def = 0, num = true) {
 
 log.timer("detecting upcoming releases");
 
-const repo = new Github({
-  host: "api.github.com"
-});
+github.authenticate({type: "oauth", token});
 
-repo.authenticate({type: "token", token});
-
-repo.projects
+github.projects
   .getRepoProjects({
     owner: "d3plus",
     repo: name
@@ -41,12 +37,12 @@ repo.projects
   .then(res => {
     const projects = res.data.filter(p => p.name === nextMajor);
     if (projects.length) {
-      repo.projects
+      github.projects
         .getProjectColumns({
           project_id: projects[0].id
         })
         .then(res => {
-          Promise.all(res.data.map(c => repo.projects.getProjectCards({column_id: c.id}).then(res => res.data)))
+          Promise.all(res.data.map(c => github.projects.getProjectCards({column_id: c.id}).then(res => res.data)))
             .then(columns => {
               const total = columns[0].length + columns[1].length + columns[2].length;
               const complete = columns[2].length;

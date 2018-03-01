@@ -39,15 +39,14 @@
     "test": "d3plus-test"
   },
   "dependencies": {
+    "@octokit/rest": "^14.0.9",
     "chalk": "^2.1.0",
     "chokidar": "^2.0.0",
     "d3-time-format": "^2.0.5",
     "electron-screenshot-service": "^4.0.3",
     "eslint": "^4.8.0",
     "faucet": "0.0.1",
-    "github": "^13.1.0",
     "github-issues-label-sync": "^2.1.0",
-    "grizzly": "^3.0.0",
     "jsdoc-to-markdown": "^4.0.1",
     "live-server": "^1.1.0",
     "putasset": "^3.0.0",
