@@ -31,7 +31,8 @@ module.exports = function(opts = {}) {
     format: "umd",
     name: "d3plus",
     sourcemap: true,
-    sourcemapFile: `build/${name}${opts.deps ? ".full" : ""}.js`
+    sourcemapFile: `build/${name}${opts.deps ? ".full" : ""}.js`,
+    strict: !opts.deps
   };
 
   /**
