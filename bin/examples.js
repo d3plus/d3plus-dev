@@ -35,9 +35,10 @@ const time = new Date();
     @desc Detects if a file is new or updated.
     @private
 */
-function updatedFile(file) {
-  return !shell.exec(`git ls-files ${file}`, {silent: true}).stdout.length ||
-          shell.exec(`git diff ${file}`, {silent: true}).stdout.length;
+function updatedFile() {
+  return true;
+  // return !shell.exec(`git ls-files ${file}`, {silent: true}).stdout.length ||
+  //         shell.exec(`git diff ${file}`, {silent: true}).stdout.length;
 }
 
 /**
