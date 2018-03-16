@@ -61,7 +61,7 @@
     "zora": "^2.0.0"
   },
   "devDependencies": {
-    "d3plus-shape": "^0.13.16",
+    "d3plus-shape": "^0.14.0",
     "d3plus-text": "^0.9.25"
   },
   "module": "es/index",
