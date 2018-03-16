@@ -39,7 +39,7 @@
     "test": "d3plus-test"
   },
   "dependencies": {
-    "@octokit/rest": "^14.0.9",
+    "@octokit/rest": "^15.2.1",
     "chalk": "^2.1.0",
     "chokidar": "^2.0.0",
     "d3-time-format": "^2.0.5",
@@ -52,7 +52,7 @@
     "putasset": "^3.0.0",
     "rollup": "^0.56.2",
     "rollup-plugin-buble": "^0.19.2",
-    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "shelljs": "^0.8.0",
