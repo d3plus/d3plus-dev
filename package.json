@@ -44,7 +44,7 @@
     "chokidar": "^2.0.0",
     "d3-time-format": "^2.0.5",
     "electron-screenshot-service": "^4.0.3",
-    "eslint": "^4.8.0",
+    "eslint": "^4.19.1",
     "faucet": "0.0.1",
     "github-issues-label-sync": "^2.1.0",
     "jsdoc-to-markdown": "^4.0.1",
