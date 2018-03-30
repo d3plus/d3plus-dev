@@ -86,7 +86,12 @@ date: ${timeFormat(time)}
 
       });
 
-    }));
+    }))
+    .catch(err => {
+      log.fail(err);
+      log.exit();
+      shell.exit(1);
+    });
 
 }
 
