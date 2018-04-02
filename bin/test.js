@@ -100,8 +100,8 @@ execAsync("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js tes
     }
 
   })
-  .catch(err => {
+  .catch((err, code) => {
     log.fail(err);
     log.exit();
-    shell.exit(1);
+    shell.exit(code);
   });

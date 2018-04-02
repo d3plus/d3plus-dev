@@ -27,7 +27,7 @@ const shell = require("shelljs");
 function execAsync(cmd, opts = {}) {
   return new Promise((resolve, reject) => {
     shell.exec(cmd, opts, (code, stdout, stderr) => {
-      if (code !== 0) return reject(new Error(stderr));
+      if (code !== 0) return reject(new Error(stderr.length ? stderr : stdout), code);
       return resolve(stdout);
     });
   });
