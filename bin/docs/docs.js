@@ -4,7 +4,7 @@
     @module d3plus-docs
     @summary Generates documentation based on code comments.
     @desc Generates the READEME.md documentation based on the JSDoc comments in the codebase. This script will overwrite README.md, but will not do any interaction with Github (commit, push, etc).
-**/
+*/
 
 const github = require("@octokit/rest")(),
       jsdoc2md = require("jsdoc-to-markdown"),
@@ -20,6 +20,15 @@ const minor = versions.slice(0, versions.length - 1).join(".");
 const nextMajor = `${versions[0] + 1}.0`;
 // const nextMinor = `${versions[0]}.${versions[1] + 1}`;
 
+/**
+    @function getVar
+    @summary Parses out variables from the top of an example file.
+    @param {String} contents File to parse.
+    @param {String} key Variable name to look for.
+    @param {Number|String} def Default fallback value to use if not found.
+    @param {Boolean} [num = true] Whether or not the value should be coerced into a Number.
+    @private
+*/
 function getVar(contents, key, def = 0, num = true) {
   const r = new RegExp(`\\[${key}\\]: ([0-9]+)`, "g").exec(contents);
   return r ? num ? parseFloat(r[1], 10) : r[1] : def;
@@ -147,6 +156,12 @@ ${docs}
 `;
   new shell.ShellString(contents).to(template);
 
+  /**
+      @function errorHandler
+      @summary Handles exec/promise errors.
+      @param {Function} [cb] Callback function.
+      @private
+  */
   function errorHandler(cb) {
 
     return (code, stdout) => {

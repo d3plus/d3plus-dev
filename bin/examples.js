@@ -4,7 +4,7 @@
     @module d3plus-examples
     @summary Generates example images and HTML.
     @desc Parses any markdown files in the `./example` directory and transforms them into an HTML file usable on the web and takes a screenshot to be used as a thumbnail.
-**/
+*/
 
 const fs = require("fs"),
       log = require("./log")("building examples"),
@@ -21,7 +21,12 @@ let minor = version.split(".");
 minor = minor.slice(0, minor.length - 1).join(".");
 
 /**
-    @desc Gets a var from markdown header
+    @function getVar
+    @summary Parses out variables from the top of an example file.
+    @param {String} contents File to parse.
+    @param {String} key Variable name to look for.
+    @param {Number|String} def Default fallback value to use if not found.
+    @param {Boolean} [num = true] Whether or not the value should be coerced into a Number.
     @private
 */
 function getVar(contents, key, def = 0, num = true) {
