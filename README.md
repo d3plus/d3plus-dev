@@ -54,7 +54,7 @@ Generates the READEME.md documentation based on the JSDoc comments in the codeba
 This is a script accessible from the node environment.
 
 
-<a name="module_d3plus-docs..finishDocs" href="#module_d3plus-docs..finishDocs">#</a> d3plus.~**finishDocs**() [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/docs/docs.js#L67)
+<a name="module_d3plus-docs..finishDocs" href="#module_d3plus-docs..finishDocs">#</a> d3plus.~**finishDocs**() [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/docs/docs.js#L76)
 
 
 This is a inner method of [<code>d3plus-docs</code>](#module_d3plus-docs).
@@ -103,4 +103,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Mon, 02 Apr 2018 16:39:50 GMT</sub>
+###### <sub>Documentation generated on Wed, 25 Jul 2018 14:45:51 GMT</sub>
