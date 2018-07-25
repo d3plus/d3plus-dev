@@ -24,7 +24,7 @@ pkg.files = [
   `build/${pkg.name}.min.js`,
   "es"
 ];
-new shell.ShellString(JSON.stringify(pkg, null, 2)).to("package.json");
+new shell.ShellString(`${JSON.stringify(pkg, null, 2)}\n`).to("package.json");
 
 log.timer("creating/updating .eslintrc");
 new shell.ShellString(JSON.stringify(eslint, null, 2)).to(".eslintrc");
