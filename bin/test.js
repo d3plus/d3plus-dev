@@ -18,7 +18,7 @@ const buble = require("rollup-plugin-buble"),
 
 log.timer("linting code");
 
-execAsync("eslint --color index.js bin/*.js bin/**/*.js src/*.js src/**/*.js test/*.js test/**/*.js", {silent: true})
+execAsync("eslint --color index.js \"?(bin|src|test)/**/*.js\"", {silent: true})
   .then(stdout => {
 
     log.done();
