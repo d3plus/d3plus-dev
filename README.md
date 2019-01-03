@@ -103,4 +103,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Fri, 14 Sep 2018 15:44:26 GMT</sub>
+###### <sub>Documentation generated on Thu, 03 Jan 2019 23:01:03 GMT</sub>
