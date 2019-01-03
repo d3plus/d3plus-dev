@@ -17,6 +17,7 @@ const pkg = JSON.parse(shell.cat("package.json"));
 pkg.main = `build/${pkg.name}.js`;
 pkg.module = "es/index";
 pkg["jsnext:main"] = "es/index";
+pkg.sideEffects = false;
 pkg.files = [
   "bin",
   `build/${pkg.name}.js`,
