@@ -165,47 +165,47 @@ if (shell.test("-d", "example")) {
           shell.cp(file.replace("html", "png"), newFile.replace(".html", "thumb.png"));
         });
 
-      screenshot.close();
+        screenshot.close();
 
-      if (shell.test("-d", "../d3plus-website")) {
-        log.timer("uploading examples to d3plus.org");
+        if (shell.test("-d", "../d3plus-website")) {
+          log.timer("uploading examples to d3plus.org");
 
-        shell.ls("-d", `../d3plus-website/_examples/${name}/*`).forEach(example => {
-          const title = example.replace(`../d3plus-website/_examples/${name}/`, "");
-          if (!present.includes(title)) shell.rm("-rf", example);
-        });
-
-        shell.cd("../d3plus-website");
-
-        execAsync(`git add _examples/${name}/*`)
-          .then(() => execAsync(`git commit -m \"${name} examples\"`))
-          .then(() => execAsync("git push"))
-          .then(() => {
-            log.done();
-            server.shutdown();
-            shell.exit(0);
-          })
-          .catch(err => {
-            log.fail(err);
-            server.shutdown();
-            log.exit();
-            shell.exit(1);
+          shell.ls("-d", `../d3plus-website/_examples/${name}/*`).forEach(example => {
+            const title = example.replace(`../d3plus-website/_examples/${name}/`, "");
+            if (!present.includes(title)) shell.rm("-rf", example);
           });
 
-      }
-      else {
-        log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
-        log.exit();
-        server.shutdown();
-        shell.exit(0);
-      }
+          shell.cd("../d3plus-website");
 
-    })
-    .catch(err => {
-      log.fail(err);
-      log.exit();
-      shell.exit(1);
-    });
+          execAsync(`git add _examples/${name}/*`)
+            .then(() => execAsync(`git commit -m \"${name} examples\"`))
+            .then(() => execAsync("git push"))
+            .then(() => {
+              log.done();
+              server.shutdown();
+              shell.exit(0);
+            })
+            .catch(err => {
+              log.fail(err);
+              server.shutdown();
+              log.exit();
+              shell.exit(1);
+            });
+
+        }
+        else {
+          log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
+          log.exit();
+          server.shutdown();
+          shell.exit(0);
+        }
+
+      })
+      .catch(err => {
+        log.fail(err);
+        log.exit();
+        shell.exit(1);
+      });
 
   });
 
