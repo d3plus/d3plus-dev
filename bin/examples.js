@@ -156,12 +156,12 @@ if (shell.test("-d", "example")) {
           let title = re.exec(mdc);
           title = title ? title[1] : "Example";
           new shell.ShellString(`---
-  title: ${title}
-  width: ${width / pixelRatio}
-  height: ${height / pixelRatio}
-  time: ${time.getTime()}
-  date: ${timeFormat(time)}
-  ---\n\n${mdc}`).to(newFile.replace(".html", "index.md"));
+title: ${title}
+width: ${width / pixelRatio}
+height: ${height / pixelRatio}
+time: ${time.getTime()}
+date: ${timeFormat(time)}
+---\n\n${mdc}`).to(newFile.replace(".html", "index.md"));
           shell.cp(file.replace("html", "png"), newFile.replace(".html", "thumb.png"));
         });
 
