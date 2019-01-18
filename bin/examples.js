@@ -6,7 +6,8 @@
     @desc Parses any markdown files in the `./example` directory and transforms them into an HTML file usable on the web and takes a screenshot to be used as a thumbnail.
 */
 
-const fs = require("fs"),
+const execAsync = require("./execAsync"),
+      fs = require("fs"),
       log = require("./log")("building examples"),
       port = 4000,
       screenshot = require("electron-screenshot-service"),
@@ -50,53 +51,16 @@ function updatedFile() {
     @desc Takes a screenshot of an example.
     @private
 */
-function ssPromise(file) {
+function screenshotPromise(file) {
 
   const contents = shell.cat(file.replace("html", "md")),
         url = `http://localhost:${port}/${file}`;
 
-  const delay = getVar(contents, "delay", 1000),
+  const delay = getVar(contents, "delay", 2000),
         height = getVar(contents, "height", 400),
         width = getVar(contents, "width", 990);
 
-  return screenshot({url, width, height, delay, transparent: true})
-    .then(img => new Promise(resolve => {
-      fs.writeFile(file.replace("html", "png"), img.data, err => {
-        if (err) throw err;
-
-        const slug = file.split("/")[1].replace(".html", "");
-        const dir = `../d3plus-website/_examples/${name}/${slug}`;
-        shell.mkdir("-p", dir);
-        const newFile = file.replace(slug, "").replace("example", dir);
-
-        new shell.ShellString(shell.cat(file)
-          .replace("../build", "https://d3plus.org/js")
-          .replace("full.min.js", `v${minor}.full.min.js`))
-          .to(newFile.replace(".html", "embed.html"));
-
-        const mdc = shell.cat(file.replace("html", "md"));
-        const re = new RegExp("# (.*?)\\n", "g");
-        let title = re.exec(mdc);
-        title = title ? title[1] : "Example";
-        new shell.ShellString(`---
-title: ${title}
-width: ${width}
-height: ${height}
-time: ${time.getTime()}
-date: ${timeFormat(time)}
----\n\n${mdc}`).to(newFile.replace(".html", "index.md"));
-        shell.cp(file.replace("html", "png"), newFile.replace(".html", "thumb.png"));
-
-        resolve(img);
-
-      });
-
-    }))
-    .catch(err => {
-      log.fail(err);
-      log.exit();
-      shell.exit(1);
-    });
+  return screenshot({url, width, height, delay, transparent: true});
 
 }
 
@@ -164,7 +128,42 @@ if (shell.test("-d", "example")) {
   log.timer("taking screenshots");
   server.start({logLevel: 0, noBrowser: true, port}).on("listening", () => {
 
-    Promise.all(examples.map(ssPromise)).then(() => {
+    screenshot.scale(examples.length);
+
+    Promise.all(examples.map(screenshotPromise))
+      .then(arr => {
+
+        arr.forEach((img, i) => {
+
+          const file = examples[i],
+                height = img.size.height,
+                pixelRatio = img.size.devicePixelRatio,
+                width = img.size.width;
+
+          fs.writeFileSync(file.replace("html", "png"), img.data);
+          const slug = file.split("/")[1].replace(".html", "");
+          const dir = `../d3plus-website/_examples/${name}/${slug}`;
+          shell.mkdir("-p", dir);
+          const newFile = file.replace(slug, "").replace("example", dir);
+
+          new shell.ShellString(shell.cat(file)
+            .replace("../build", "https://d3plus.org/js")
+            .replace("full.min.js", `v${minor}.full.min.js`))
+            .to(newFile.replace(".html", "embed.html"));
+
+          const mdc = shell.cat(file.replace("html", "md"));
+          const re = new RegExp("# (.*?)\\n", "g");
+          let title = re.exec(mdc);
+          title = title ? title[1] : "Example";
+          new shell.ShellString(`---
+  title: ${title}
+  width: ${width / pixelRatio}
+  height: ${height / pixelRatio}
+  time: ${time.getTime()}
+  date: ${timeFormat(time)}
+  ---\n\n${mdc}`).to(newFile.replace(".html", "index.md"));
+          shell.cp(file.replace("html", "png"), newFile.replace(".html", "thumb.png"));
+        });
 
       screenshot.close();
 
@@ -177,43 +176,22 @@ if (shell.test("-d", "example")) {
         });
 
         shell.cd("../d3plus-website");
-        shell.exec(`git add _examples/${name}/*`, (code, stdout) => {
 
-          if (code) {
-            log.fail();
+        execAsync(`git add _examples/${name}/*`)
+          .then(() => execAsync(`git commit -m \"${name} examples\"`))
+          .then(() => execAsync("git push"))
+          .then(() => {
+            log.done();
             server.shutdown();
-            shell.echo(stdout);
-            shell.exit(code);
-          }
-          else {
+            shell.exit(0);
+          })
+          .catch(err => {
+            log.fail(err);
+            server.shutdown();
+            log.exit();
+            shell.exit(1);
+          });
 
-            shell.exec(`git commit -m \"${name} examples\"`, code => {
-
-              if (code) {
-                log.done();
-                shell.exit(0);
-              }
-              else {
-
-                shell.exec("git push", (code, stdout) => {
-                  if (code) {
-                    log.fail();
-                    shell.echo(stdout);
-                  }
-                  else log.done();
-
-                  server.shutdown();
-                  shell.exit(code);
-
-                });
-
-              }
-
-            });
-
-          }
-
-        });
       }
       else {
         log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
@@ -222,6 +200,11 @@ if (shell.test("-d", "example")) {
         shell.exit(0);
       }
 
+    })
+    .catch(err => {
+      log.fail(err);
+      log.exit();
+      shell.exit(1);
     });
 
   });
