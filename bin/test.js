@@ -56,7 +56,8 @@ execAsync("eslint --color index.js \"?(bin|src|test)/**/*.js\"", {silent: true})
           deps({jsnext: true, preferBuiltins: false}),
           commonjs(),
           buble({
-            exclude: ["node_modules/zora/**", "test/**"]
+            exclude: ["node_modules/zora/**", "test/**"],
+            transforms: {dangerousForOf: true}
           })
         ]
       };

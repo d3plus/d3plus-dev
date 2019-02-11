@@ -17,7 +17,7 @@ shell.config.silent = true;
 log.timer("transpiling ES6 for modules");
 shell.rm("-rf", "es");
 shell.mkdir("-p", "es");
-execAsync("buble -i index.js --no modules -m -o es/index.js")
+execAsync("buble -i index.js --no modules --yes dangerousForOf -m -o es/index.js")
   .then(() => execAsync("buble -i src --no modules -m -o es/src"))
   .then(() => rollup())
   .then(() => rollup({deps: true}))

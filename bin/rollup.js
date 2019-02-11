@@ -16,7 +16,7 @@ module.exports = function(opts = {}) {
     plugins.push(deps({jsnext: true, preferBuiltins: false}));
     plugins.push(commonjs());
   }
-  plugins.push(buble());
+  plugins.push(buble({transforms: {dangerousForOf: true}}));
 
   const input = {
     input: "index.js",
