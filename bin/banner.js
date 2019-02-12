@@ -1,6 +1,9 @@
 const assign = require("./polyfill/assign.js"),
+      find = require("./polyfill/find.js"),
       includes = require("./polyfill/includes.js"),
+      innerHTML = require("./polyfill/innerHTML.js"),
       shell = require("shelljs"),
+      startsWith = require("./polyfill/startsWith.js"),
       {description, homepage, license, name, version} = JSON.parse(shell.cat("package.json"));
 
 module.exports = `/*
@@ -13,4 +16,10 @@ module.exports = `/*
 ${assign}
 
 ${includes}
+
+${find}
+
+${startsWith}
+
+${innerHTML}
 `;
