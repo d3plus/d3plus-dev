@@ -1,6 +1,9 @@
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
+import "core-js/modules/es.array.find";
+import "core-js/modules/es.array.includes";
+import "core-js/modules/es.object.assign";
+import "core-js/modules/es.string.starts-with";
 
-module.exports = `if (typeof window !== "undefined") {
+if (typeof window !== "undefined") {
   (function () {
     var serializeXML = function (node, output) {
       var nodeType = node.nodeType;
@@ -10,7 +13,7 @@ module.exports = `if (typeof window !== "undefined") {
         output.push('<', node.tagName);
         if (node.hasAttributes()) {
           [].forEach.call(node.attributes, function(attrNode){
-            output.push(' ', attrNode.item.name, '=\\'', attrNode.item.value, '\\'');
+            output.push(' ', attrNode.item.name, '=\'', attrNode.item.value, '\'');
           })
         }
         if (node.hasChildNodes()) {
@@ -46,7 +49,7 @@ module.exports = `if (typeof window !== "undefined") {
           var dXML = new DOMParser();
           dXML.async = false;
 
-          var sXML = '<svg xmlns=\\'http://www.w3.org/2000/svg\\' xmlns:xlink=\\'http://www.w3.org/1999/xlink\\'>' + markupText + '</svg>';
+          var sXML = '<svg xmlns=\'http://www.w3.org/2000/svg\' xmlns:xlink=\'http://www.w3.org/1999/xlink\'>' + markupText + '</svg>';
           var svgDocElement = dXML.parseFromString(sXML, 'text/xml').documentElement;
 
           var childNode = svgDocElement.firstChild;
@@ -68,4 +71,4 @@ module.exports = `if (typeof window !== "undefined") {
     });
 
   })();
-}`;
+}

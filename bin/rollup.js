@@ -1,22 +1,29 @@
 const babel = require("rollup-plugin-babel"),
-      banner = require("./banner"),
       commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),
       json = require("rollup-plugin-json"),
       log = require("./log")("rollup"),
       rollup = require("rollup"),
       shell = require("shelljs"),
-      {name} = JSON.parse(shell.cat("package.json"));
+      {description, homepage, license, name, version} = JSON.parse(shell.cat("package.json"));
 
 shell.config.silent = true;
-module.exports = function(opts = {}) {
+module.exports = async function(opts = {}) {
+
+  const polyfillBuild = await rollup.rollup({
+    input: `${__dirname}/polyfills.js`,
+    plugins: [deps({preferBuiltins: false}), commonjs()],
+    onwarn: () => {}
+  });
+  const polyfillBundle = await polyfillBuild.generate({format: "umd"});
+  const polyfills = polyfillBundle.output[0].code;
 
   const plugins = [json()];
   if (opts.deps) {
-    plugins.push(deps({jsnext: true, preferBuiltins: false}));
+    plugins.push(deps({preferBuiltins: false}));
     plugins.push(commonjs());
   }
-  plugins.push(babel({configFile: `${__dirname}/.babelrc'`}));
+  plugins.push(babel({configFile: `${__dirname}/.babelrc`}));
 
   const input = {
     input: "index.js",
@@ -26,8 +33,15 @@ module.exports = function(opts = {}) {
 
   const output = {
     amd: {id: name},
-    banner,
+    banner: `/*
+  ${name} v${version}
+  ${description}
+  Copyright (c) ${new Date().getFullYear()} D3plus - ${homepage}
+  @license ${license}
+*/
+`,
     file: `build/${name}${opts.deps ? ".full" : ""}.js`,
+    footer: polyfills,
     format: "umd",
     name: "d3plus",
     sourcemap: true,
@@ -50,7 +64,7 @@ module.exports = function(opts = {}) {
         if (opts.watch) log.timer("watching for changes...");
         return undefined;
       case "CIRCULAR_DEPENDENCY":
-        return undefined;
+          return undefined;
       case "ERROR":
       case "FATAL":
         log.fail();
