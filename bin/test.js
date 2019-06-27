@@ -6,7 +6,7 @@
     @desc Based on the .eslintrc file provided by the [d3plus-env](#module_d3plus-env) script, all source files will be linted and then passed to any browser/unit tests that have been written.
 **/
 
-const buble = require("rollup-plugin-buble"),
+const babel = require("rollup-plugin-babel"),
       commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),
       execAsync = require("./execAsync"),
@@ -55,9 +55,9 @@ execAsync("eslint --color index.js \"?(bin|src|test)/**/*.js\"", {silent: true})
           json(),
           deps({jsnext: true, preferBuiltins: false}),
           commonjs(),
-          buble({
-            exclude: ["node_modules/zora/**", "test/**"],
-            transforms: {dangerousForOf: true}
+          babel({
+            configFile: `${__dirname}/.babelrc'`,
+            exclude: ["node_modules/zora/**", "test/**"]
           })
         ]
       };

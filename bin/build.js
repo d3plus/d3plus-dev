@@ -17,9 +17,9 @@ shell.config.silent = true;
 log.timer("transpiling ES6 for modules");
 shell.rm("-rf", "es");
 shell.mkdir("-p", "es");
-execAsync("buble -i index.js --no modules --yes dangerousForOf -m -o es/index.js")
+execAsync("babel index.js --out-file es/index.js")
   .then(() => {
-    if (shell.test("-d", "./src")) return execAsync("buble -i src --no modules -m -o es/src");
+    if (shell.test("-d", "./src")) return execAsync("babel src --out-dir es/src");
     else return true;
   })
   .then(() => rollup())

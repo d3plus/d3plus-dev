@@ -1,5 +1,5 @@
-const banner = require("./banner"),
-      buble = require("rollup-plugin-buble"),
+const babel = require("rollup-plugin-babel"),
+      banner = require("./banner"),
       commonjs = require("rollup-plugin-commonjs"),
       deps = require("rollup-plugin-node-resolve"),
       json = require("rollup-plugin-json"),
@@ -16,7 +16,7 @@ module.exports = function(opts = {}) {
     plugins.push(deps({jsnext: true, preferBuiltins: false}));
     plugins.push(commonjs());
   }
-  plugins.push(buble({transforms: {dangerousForOf: true}}));
+  plugins.push(babel({configFile: `${__dirname}/.babelrc'`}));
 
   const input = {
     input: "index.js",
