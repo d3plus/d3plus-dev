@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {strip, textSplit} from "d3plus-text";
 
 test("unicode", assert => {

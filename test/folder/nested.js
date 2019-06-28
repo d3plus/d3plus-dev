@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 
 test("nested", assert => {
 

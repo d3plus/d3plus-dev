@@ -18,7 +18,7 @@ const babel = require("rollup-plugin-babel"),
 
 log.timer("linting code");
 
-execAsync("eslint --color index.js \"?(bin|src|test)/**/*.js\"", {silent: true})
+execAsync("eslint --color index.js \"?(src|test)/**/*.js\"", {silent: true})
   .then(stdout => {
 
     log.done();
@@ -33,7 +33,11 @@ execAsync("eslint --color index.js \"?(bin|src|test)/**/*.js\"", {silent: true})
       log.timer("compiling tests");
       tests.reverse();
 
-      new shell.ShellString(tests.map((file, i) => `import test${i} from "./${ file.slice(5) }";`).join("\n"))
+      const testIndex = tests
+        .map((file, i) => `import test${i} from "./${ file.slice(5) }";\nconsole.log(test${i});`)
+        .join("\n");
+
+      new shell.ShellString(testIndex)
         .to("test/.index.js");
 
       const input = {
@@ -53,10 +57,10 @@ execAsync("eslint --color index.js \"?(bin|src|test)/**/*.js\"", {silent: true})
         },
         plugins: [
           json(),
-          deps({jsnext: true, preferBuiltins: false}),
+          deps({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}),
           commonjs(),
           babel({
-            configFile: `${__dirname}/.babelrc'`,
+            configFile: `${__dirname}/.babelrc`,
             exclude: ["node_modules/zora/**", "test/**"]
           })
         ]
