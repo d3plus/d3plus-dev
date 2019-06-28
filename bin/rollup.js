@@ -20,7 +20,7 @@ module.exports = async function(opts = {}) {
 
   const plugins = [json()];
   if (opts.deps) {
-    plugins.push(deps({preferBuiltins: false}));
+    plugins.push(deps({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));
     plugins.push(commonjs());
   }
   plugins.push(babel({configFile: `${__dirname}/.babelrc`}));
