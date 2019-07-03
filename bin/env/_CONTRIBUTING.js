@@ -74,10 +74,10 @@ npm test
 \`\`\`
 > This command will also lint all files according to the provided \`.eslintc\` file.
 
-D3plus uses [zora]() for running tests, and [tape-run] for outputting the results. Here is an example of what a test file could look like:
+D3plus uses [zora](https://github.com/lorenzofox3/zora) for running tests, and [tape-run](https://github.com/juliangruber/tape-run) for outputting the results. Here is an example of what a test file could look like:
 
 \`\`\`js
-import test from "zora";
+import {test} from "zora";
 
 test("testing booleans", assert => {
 
