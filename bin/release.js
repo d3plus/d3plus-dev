@@ -84,13 +84,13 @@ function finishRelease() {
 
       return github.repos.uploadReleaseAsset({
         url: releaseUrl,
+        headers: {
+          "content-length": zipSize,
+          "content-type": "application/zip"
+        },
         file: fs.createReadStream(`build/${name}.zip`),
-        contentType: "application/zip",
-        contentLength: zipSize,
         name: `${name}.zip`,
-        label: `${name}.zip`,
-        owner: "d3plus",
-        repo: name
+        label: `${name}.zip`
       });
 
     })
