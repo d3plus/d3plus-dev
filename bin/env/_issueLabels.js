@@ -1,53 +1,47 @@
-const LabelSync = require("github-issues-label-sync"),
+const Octokit = require("@octokit/rest"),
       shell = require("shelljs"),
       token = shell.env.GITHUB_TOKEN,
       {name} = JSON.parse(shell.cat("package.json"));
 
-// labeling system inspired by
-// https://robinpowered.com/blog/best-practice-system-for-organizing-and-tagging-github-issues/
 module.exports = log => {
 
-  log.timer("syncing github repository issue label names and colors");
+  log.timer("syncing github repository issue labels");
 
-  const labels = [
-    {color: "#ee3f46", name: "bug"},
+  const masterLabels = [
+    {color: "ee3f46", name: "bug"},
+    {color: "fef2c0", name: "chore"},
+    {color: "ffc274", name: "design"},
+    {color: "128A0C", name: "good first issue"},
+    {color: "91ca55", name: "feature"},
+    {color: "5ebeff", name: "enhancement"},
+    {color: "cc317c", name: "discussion"}
+  ];
 
-    {color: "#fef2c0", name: "chore"},
+  const repo = {owner: "d3plus", repo: name};
+  const github = new Octokit({auth: token});
 
-    {color: "#ffc274", name: "design"},
-
-    {color: "#91ca55", name: "feature"},
-
-    {color: "#5ebeff", name: "enhancement"},
-    {color: "#5ebeff", name: "optimization"},
-
-    {color: "#cc317c", name: "discussion"},
-    {color: "#cc317c", name: "question"},
-
-    {color: "#ededed", name: "duplicate"},
-    {color: "#ededed", name: "invalid"},
-    {color: "#ededed", name: "wontfix"},
-    {color: "#ededed", name: "greenkeeper"}
-  ].map(l => ({name: l.name, color: l.color.substring(1)}));
-
-  const issueSync = new LabelSync({}, "d3plus", name, token);
-  issueSync.createLabels(labels)
-    .catch(err => {
-      log.fail();
-      shell.echo(err.toJSON());
-      shell.exit(1);
+  github.issues
+    .listLabelsForRepo(repo)
+    .then(resp => {
+      const existingLabels = resp.data.map(issue => {
+        const index = masterLabels.findIndex(d => d.name === issue.name);
+        if (index >= 0) {
+          const issueContent = masterLabels.splice(index, 1);
+          return github.issues.updateLabel(Object.assign({current_name: issue.name}, repo, issueContent));
+        }
+        else return github.issues.deleteLabel(Object.assign({name: issue.name}, repo));
+      });
+      const newLabels = masterLabels.map(issue => github.issues.createLabel(Object.assign(issue, repo)));
+      return Promise.all(existingLabels.concat(newLabels));
     })
     .then(() => {
-      issueSync.updateLabels(labels)
-        .then(() => {
-          log.exit();
-          shell.exit(0);
-        })
-        .catch(err => {
-          log.fail();
-          shell.echo(err.toJSON());
-          shell.exit(1);
-        });
+      log.exit();
+      shell.exit(0);
+    })
+    .catch(err => {
+      log.fail();
+      shell.echo(err);
+      shell.exit(1);
     });
 
 };

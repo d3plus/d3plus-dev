@@ -66,7 +66,6 @@
     "electron-screenshot-service": "^4.0.3",
     "eslint": "^6.0.1",
     "faucet": "0.0.1",
-    "github-issues-label-sync": "^2.1.0",
     "jsdoc-to-markdown": "^5.0.0",
     "live-server": "^1.2.1",
     "rollup": "^1.16.4",
