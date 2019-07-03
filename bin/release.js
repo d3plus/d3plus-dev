@@ -8,10 +8,10 @@
     @desc If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update all documentation and examples, and tag and publish release notes on Github.
 **/
 
-const execAsync = require("./execAsync"),
+const Octokit = require("@octokit/rest"),
+      execAsync = require("./execAsync"),
       {execSync} = require("child_process"),
       fs = require("fs"),
-      github = require("@octokit/rest")(),
       shell = require("shelljs"),
       token = shell.env.GITHUB_TOKEN,
       {name, version} = JSON.parse(shell.cat("package.json"));
@@ -31,6 +31,8 @@ execSync("d3plus-build", {stdio: "inherit"});
     @private
 **/
 function finishRelease() {
+
+  const github = new Octokit({auth: token});
 
   log.done();
   execSync("d3plus-examples", {stdio: "inherit"});
@@ -59,7 +61,6 @@ function finishRelease() {
     })
     .then(() => {
       log.timer("publishing release notes");
-      github.authenticate({type: "oauth", token});
       return github.repos.createRelease({
         owner: "d3plus",
         repo: name,
@@ -81,7 +82,7 @@ function finishRelease() {
       releaseUrl = release.data.upload_url;
       zipSize = fs.statSync(`build/${name}.zip`).size;
 
-      return github.repos.uploadAsset({
+      return github.repos.uploadReleaseAsset({
         url: releaseUrl,
         file: fs.createReadStream(`build/${name}.zip`),
         contentType: "application/zip",
