@@ -6,8 +6,11 @@
     @desc This script will compile 2 builds, one with all dependencies includes (full) and one with only the core code. Next, each of those builds is minified using uglifyjs. Finally, all those builds, along with the LICENSE and README, are compressed into a .zip file.
 */
 
-const execAsync = require("./execAsync"),
+const babel = require("@babel/core"),
+      execAsync = require("./execAsync"),
+      fs = require("fs"),
       log = require("./log")("build compile"),
+      path = require("path"),
       rollup = require("./rollup"),
       shell = require("shelljs"),
       {name} = JSON.parse(shell.cat("package.json"));
@@ -17,12 +20,23 @@ shell.config.silent = true;
 log.timer("transpiling ES6 for modules");
 shell.rm("-rf", "es");
 shell.mkdir("-p", "es");
-execAsync("babel index.js --out-file es/index.js")
-  .then(() => {
-    if (shell.test("-d", "./src")) return execAsync("babel src --out-dir es/src");
-    else return true;
-  })
-  .then(() => rollup())
+
+const babelRC = JSON.parse(shell.cat(path.join(__dirname, ".babelrc")));
+
+shell.ls("-R", "src/**/*.js").concat(["index.js"])
+  .forEach(file => {
+    const {code} = babel.transformFileSync(file, babelRC);
+    file.split("/")
+      .filter(name => !name.includes("."))
+      .reduce((dir, folder) => {
+        dir = path.join(dir, folder);
+        !fs.existsSync(dir) && fs.mkdirSync(dir);
+        return dir;
+      }, "es/");
+    fs.writeFileSync(`es/${file}`, code);
+  });
+
+rollup()
   .then(() => rollup({deps: true}))
   .then(() => {
     log.timer("uglifying builds");
