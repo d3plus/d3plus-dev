@@ -1,1 +1,2 @@
-export default "Ceci n'est pas une |";
+const string = "Ceci n'est pas une |";
+export default string;
