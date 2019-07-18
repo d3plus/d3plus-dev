@@ -1,6 +1,7 @@
 import "core-js/modules/es.array.find";
 import "core-js/modules/es.array.includes";
 import "core-js/modules/es.object.assign";
+import "core-js/modules/es.string.includes";
 import "core-js/modules/es.string.starts-with";
 
 if (typeof window !== "undefined") {
