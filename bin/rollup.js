@@ -39,9 +39,9 @@ module.exports = async function(opts = {}) {
   Copyright (c) ${new Date().getFullYear()} D3plus - ${homepage}
   @license ${license}
 */
-`,
+
+${polyfills}`,
     file: `build/${name}${opts.deps ? ".full" : ""}.js`,
-    footer: polyfills,
     format: "umd",
     name: "d3plus",
     sourcemap: true,
