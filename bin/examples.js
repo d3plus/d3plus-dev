@@ -68,7 +68,7 @@ function screenshotPromise(file) {
     @desc Generates a section of an HTML document based on a markdown code block.
     @private
 */
-function addSection(syntax, contents, space = "") {
+function addSection(syntax, contents, space = "  ") {
   const re = new RegExp(`\`\`\`${syntax}\\n((.|\\n)*?)\\n\`\`\``, "g");
   const matches = [];
   let match;
@@ -101,21 +101,29 @@ if (shell.test("-d", "example")) {
     const contents = shell.cat(file),
           filename = file.replace("md", "html");
 
+    const titleReg = new RegExp("# (.*?)\\n", "g");
+    let pageTitle = titleReg.exec(contents);
+    pageTitle = pageTitle ? pageTitle[1] : "Example";
+
     new shell.ShellString(`<!doctype html>
 <html>
 
-<head>
+  <head>
 
-  <meta charset="utf-8">
-  <script src="../build/${name}.full.min.js"></script>
+    <meta charset="utf-8">
+    <title>${pageTitle} | D3plus</title>
 
-  <style>${addSection("css", contents, "  ")}</style>
+    <script src="../build/${name}.full.min.js"></script>
 
-</head>
+    <style>${addSection("css", contents, "    ")}</style>
 
-<body>${addSection("html", contents)}</body>
+  </head>
 
-<script>${addSection("js", contents)}</script>
+  <body>${addSection("html", contents)}
+
+    <script>${addSection("js", contents, "    ")}</script>
+
+  </body>
 
 </html>
 `).to(filename);
@@ -171,8 +179,8 @@ date: ${timeFormat(time)}
           log.timer("uploading examples to d3plus.org");
 
           shell.ls("-d", `../d3plus-website/_examples/${name}/*`).forEach(example => {
-            const title = example.replace(`../d3plus-website/_examples/${name}/`, "");
-            if (!present.includes(title)) shell.rm("-rf", example);
+            const folder = example.replace(`../d3plus-website/_examples/${name}/`, "");
+            if (!present.includes(folder)) shell.rm("-rf", example);
           });
 
           shell.cd("../d3plus-website");
