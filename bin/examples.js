@@ -58,7 +58,7 @@ function screenshotPromise(file) {
 
   const delay = getVar(contents, "delay", 2000),
         height = getVar(contents, "height", 400),
-        width = getVar(contents, "width", 990);
+        width = getVar(contents, "width", 800);
 
   return screenshot({url, width, height, delay, transparent: true});
 
