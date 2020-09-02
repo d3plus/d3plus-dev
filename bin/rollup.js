@@ -23,7 +23,11 @@ module.exports = async function(opts = {}) {
     plugins.push(nodeResolve({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));
     plugins.push(commonjs());
   }
-  plugins.push(getBabelOutputPlugin({allowAllFormats: true, configFile: `${__dirname}/.babelrc`}));
+  plugins.push(getBabelOutputPlugin({
+    generatorOpts: {compact: false},
+    allowAllFormats: true,
+    configFile: `${__dirname}/.babelrc`
+  }));
 
   const input = {
     input: "index.js",
