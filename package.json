@@ -79,8 +79,8 @@
     "zora": "^4.0.0"
   },
   "devDependencies": {
-    "d3plus-shape": "^0.16.0",
-    "d3plus-text": "^0.9.41"
+    "d3plus-shape": "^0.17.0",
+    "d3plus-text": "^0.10.1"
   },
   "module": "es/index",
   "jsnext:main": "es/index",
