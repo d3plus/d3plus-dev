@@ -1,7 +1,7 @@
-const babel = require("rollup-plugin-babel"),
-      commonjs = require("rollup-plugin-commonjs"),
-      deps = require("rollup-plugin-node-resolve"),
-      json = require("rollup-plugin-json"),
+const {getBabelOutputPlugin} = require("@rollup/plugin-babel"),
+      commonjs = require("@rollup/plugin-commonjs"),
+      {nodeResolve} = require("@rollup/plugin-node-resolve"),
+      json = require("@rollup/plugin-json"),
       log = require("./log")("rollup"),
       rollup = require("rollup"),
       shell = require("shelljs"),
@@ -12,7 +12,7 @@ module.exports = async function(opts = {}) {
 
   const polyfillBuild = await rollup.rollup({
     input: `${__dirname}/polyfills.js`,
-    plugins: [deps({preferBuiltins: false}), commonjs()],
+    plugins: [nodeResolve({preferBuiltins: false}), commonjs()],
     onwarn: () => {}
   });
   const polyfillBundle = await polyfillBuild.generate({format: "umd"});
@@ -20,10 +20,10 @@ module.exports = async function(opts = {}) {
 
   const plugins = [json()];
   if (opts.deps) {
-    plugins.push(deps({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));
+    plugins.push(nodeResolve({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));
     plugins.push(commonjs());
   }
-  plugins.push(babel({configFile: `${__dirname}/.babelrc`}));
+  plugins.push(getBabelOutputPlugin({allowAllFormats: true, configFile: `${__dirname}/.babelrc`}));
 
   const input = {
     input: "index.js",
@@ -77,7 +77,7 @@ ${polyfills}`,
 
   log.timer(`bundling ${output.file}`);
   shell.mkdir("-p", "build");
-  if (opts.watch) return rollup.watch(Object.assign(input, {output, watch: {chokidar: true}})).on("event", onwarn);
+  if (opts.watch) return rollup.watch(Object.assign(input, {output: [output]})).on("event", onwarn);
   else return rollup.rollup(input).then(bundle => bundle.write(output));
 
 };
