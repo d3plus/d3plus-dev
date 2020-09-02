@@ -8,7 +8,7 @@
     @desc If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update all documentation and examples, and tag and publish release notes on Github.
 **/
 
-const Octokit = require("@octokit/rest"),
+const {Octokit} = require("@octokit/rest"),
       execAsync = require("./execAsync"),
       {execSync} = require("child_process"),
       fs = require("fs"),
@@ -88,7 +88,7 @@ function finishRelease() {
           "content-length": zipSize,
           "content-type": "application/zip"
         },
-        file: fs.createReadStream(`build/${name}.zip`),
+        data: fs.createReadStream(`build/${name}.zip`),
         name: `${name}.zip`,
         label: `${name}.zip`
       });

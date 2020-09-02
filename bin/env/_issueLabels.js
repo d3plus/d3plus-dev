@@ -1,4 +1,4 @@
-const Octokit = require("@octokit/rest"),
+const {Octokit} = require("@octokit/rest"),
       shell = require("shelljs"),
       token = shell.env.GITHUB_TOKEN,
       {name} = JSON.parse(shell.cat("package.json"));

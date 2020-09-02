@@ -6,7 +6,7 @@
     @desc Generates the READEME.md documentation based on the JSDoc comments in the codebase. This script will overwrite README.md, but will not do any interaction with Github (commit, push, etc).
 */
 
-const Octokit = require("@octokit/rest"),
+const {Octokit} = require("@octokit/rest"),
       jsdoc2md = require("jsdoc-to-markdown"),
       log = require("../log")("documentation"),
       shell = require("shelljs"),
