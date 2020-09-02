@@ -64,7 +64,7 @@
     "core-js": "^3.6.5",
     "d3-time-format": "^2.3.0",
     "electron-screenshot-service": "^4.0.3",
-    "eslint": "^6.0.1",
+    "eslint": "^7.8.1",
     "faucet": "0.0.1",
     "jsdoc-to-markdown": "^5.0.0",
     "live-server": "^1.2.1",
