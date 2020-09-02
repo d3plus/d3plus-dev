@@ -6,11 +6,11 @@
     @desc Based on the .eslintrc file provided by the [d3plus-env](#module_d3plus-env) script, all source files will be linted and then passed to any browser/unit tests that have been written.
 **/
 
-const babel = require("rollup-plugin-babel"),
-      commonjs = require("rollup-plugin-commonjs"),
-      deps = require("rollup-plugin-node-resolve"),
+const commonjs = require("@rollup/plugin-commonjs"),
+      // {getBabelOutputPlugin} = require("@rollup/plugin-babel"),
+      {nodeResolve} = require("@rollup/plugin-node-resolve"),
       execAsync = require("./execAsync"),
-      json = require("rollup-plugin-json"),
+      json = require("@rollup/plugin-json"),
       log = require("./log")("testing suite"),
       rollup = require("rollup"),
       shell = require("shelljs"),
@@ -52,17 +52,18 @@ execAsync("eslint --color index.js \"?(src|test)/**/*.js\"", {silent: true})
               shell.echo(`bundle error in '${e.error.id}':`);
               return shell.echo(e.error);
             default:
+              shell.echo(e);
               return undefined;
           }
         },
         plugins: [
           json(),
-          deps({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}),
-          commonjs(),
-          babel({
-            configFile: `${__dirname}/.babelrc`,
-            exclude: ["node_modules/zora/**", "test/**"]
-          })
+          nodeResolve({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}),
+          commonjs()
+          // getBabelOutputPlugin({
+          //   allowAllFormats: true,
+          //   configFile: `${__dirname}/.babelrc`
+          // })
         ]
       };
 
