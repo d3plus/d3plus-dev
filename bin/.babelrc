@@ -3,8 +3,11 @@
     [
       "@babel/preset-env",
       {
+        "targets": "last 2 versions, >1%",
         "modules": false,
-        "forceAllTransforms": true
+        "forceAllTransforms": true,
+        "useBuiltIns": "entry",
+        "corejs": 2
       }
     ]
   ],

@@ -12,7 +12,7 @@ module.exports = async function(opts = {}) {
 
   const polyfillBuild = await rollup.rollup({
     input: `${__dirname}/polyfills.js`,
-    plugins: [nodeResolve({preferBuiltins: false}), commonjs()],
+    plugins: [commonjs(), nodeResolve({preferBuiltins: false})],
     onwarn: () => {}
   });
   const polyfillBundle = await polyfillBuild.generate({format: "umd"});
@@ -20,8 +20,8 @@ module.exports = async function(opts = {}) {
 
   const plugins = [json()];
   if (opts.deps) {
-    plugins.push(nodeResolve({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));
     plugins.push(commonjs());
+    plugins.push(nodeResolve({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));
   }
   plugins.push(getBabelOutputPlugin({
     generatorOpts: {compact: false},
