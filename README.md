@@ -6,10 +6,13 @@ A collection of scripts for developing D3plus modules.
 
 ## Installing
 
-If you use NPM, run `npm install d3plus-dev --save`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-dev/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. You can also load directly from [d3plus.org](https://d3plus.org):
+If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-dev/releases/latest). You can also load d3plus-dev as a standalone library or as part of [D3plus](https://github.com/d3plus/d3plus). ES modules, AMD, CommonJS, and vanilla environments are supported. In vanilla, a `d3plus` global is exported:
 
 ```html
-<script src="https://d3plus.org/js/d3plus-dev.v1.0.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3plus-dev@1"></script>
+<script>
+  console.log(d3plus);
+</script>
 ```
 
 
@@ -54,7 +57,7 @@ Generates the READEME.md documentation based on the JSDoc comments in the codeba
 This is a script accessible from the node environment.
 
 
-<a name="module_d3plus-docs..finishDocs" href="#module_d3plus-docs..finishDocs">#</a> d3plus.~**finishDocs**() [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/docs/docs.js#L71)
+<a name="module_d3plus-docs..finishDocs" href="#module_d3plus-docs..finishDocs">#</a> d3plus.~**finishDocs**() [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/docs/docs.js#L72)
 
 
 This is a inner method of [<code>d3plus-docs</code>](#module_d3plus-docs).
@@ -103,4 +106,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Mon, 01 Feb 2021 20:55:22 GMT</sub>
+###### <sub>Documentation generated on Mon, 01 Feb 2021 21:03:53 GMT</sub>
