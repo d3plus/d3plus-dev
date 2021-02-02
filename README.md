@@ -11,7 +11,7 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 ```html
 <script src="https://cdn.jsdelivr.net/npm/d3plus-dev@1"></script>
 <script>
-console.log(d3plus);
+  console.log(d3plus);
 </script>
 ```
 
@@ -100,4 +100,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Tue, 02 Feb 2021 00:20:12 GMT</sub>
+###### <sub>Documentation generated on Tue, 02 Feb 2021 00:23:41 GMT</sub>
