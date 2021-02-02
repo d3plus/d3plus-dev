@@ -14,7 +14,7 @@ const eslint = require("./eslintrc.json"),
 
 log.timer("modifying package.json");
 const pkg = JSON.parse(shell.cat("package.json"));
-pkg.main = `build/${pkg.name}.js`;
+pkg.main = `build/${pkg.name}.full.js`;
 pkg.module = "es/index";
 pkg["jsnext:main"] = "es/index";
 pkg.sideEffects = false;
