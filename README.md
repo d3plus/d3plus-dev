@@ -23,7 +23,6 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 * [d3plus-dev](#module_d3plus-dev) - Spins up the development environment.
 * [d3plus-docs](#module_d3plus-docs) - Generates documentation based on code comments.
 * [d3plus-env](#module_d3plus-env) - Creates/updates shares repository files and issue labels.
-* [d3plus-examples](#module_d3plus-examples) - Generates example images and HTML.
 * [d3plus-release](#module_d3plus-release) - Publishes a release for a module.
 * [d3plus-test](#module_d3plus-test) - Runs linting and unit/browser tests on source files.
 ---
@@ -68,16 +67,6 @@ This is a script accessible from the node environment.
 
 ---
 
-<a name="module_d3plus-examples"></a>
-#### **d3plus-examples** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/examples.js#L3)
-
-Parses any markdown files in the `./example` directory and transforms them into an HTML file usable on the web and takes a screenshot to be used as a thumbnail.
-
-
-This is a script accessible from the node environment.
-
----
-
 <a name="module_d3plus-release"></a>
 #### **d3plus-release** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/release.js#L5)
 
@@ -100,4 +89,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Thu, 16 Dec 2021 16:29:57 GMT</sub>
+###### <sub>Documentation generated on Thu, 16 Dec 2021 16:32:51 GMT</sub>
