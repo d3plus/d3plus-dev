@@ -15,7 +15,6 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 </script>
 ```
 
-
 ## API Reference
 
 ##### Scripts
@@ -70,7 +69,7 @@ This is a script accessible from the node environment.
 <a name="module_d3plus-release"></a>
 #### **d3plus-release** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/release.js#L5)
 
-If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update all documentation and examples, and tag and publish release notes on Github.
+If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update README documentation, and tag and publish release notes on Github.
 
 
 This is a script accessible from the node environment.
@@ -89,4 +88,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Thu, 16 Dec 2021 16:32:51 GMT</sub>
+###### <sub>Documentation generated on Thu, 16 Dec 2021 16:35:05 GMT</sub>
