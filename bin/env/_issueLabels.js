@@ -27,7 +27,7 @@ module.exports = log => {
         const index = masterLabels.findIndex(d => d.name === issue.name);
         if (index >= 0) {
           const issueContent = masterLabels.splice(index, 1);
-          return github.issues.updateLabel(Object.assign({current_name: issue.name}, repo, issueContent));
+          return github.issues.updateLabel(Object.assign({}, repo, issueContent, {name: issue.name, new_name: issueContent.name}));
         }
         else return github.issues.deleteLabel(Object.assign({name: issue.name}, repo));
       });
