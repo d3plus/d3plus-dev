@@ -18,6 +18,9 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 
 ## API Reference
 
+##### 
+* [closest](#closest) - Finds the closest numeric value in an array.
+
 ##### Scripts
 * [d3plus-build](#module_d3plus-build) - Compiles all files for distribution.
 * [d3plus-dev](#module_d3plus-dev) - Spins up the development environment.
@@ -26,6 +29,22 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 * [d3plus-examples](#module_d3plus-examples) - Generates example images and HTML.
 * [d3plus-release](#module_d3plus-release) - Publishes a release for a module.
 * [d3plus-test](#module_d3plus-test) - Runs linting and unit/browser tests on source files.
+---
+
+<a name="closest"></a>
+#### d3plus.**closest**(n, arr) [<>](https://github.com/d3plus/d3plus-dev/blob/master/src/closest.js#L1)
+
+Finds the closest numeric value in an array.
+
+
+This is a global function.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| n | <code>Number</code> | The number value to use when searching the array. |
+| arr | <code>Array</code> | The array of values to test against. |
+
+
 ---
 
 <a name="module_d3plus-build"></a>
@@ -100,4 +119,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Tue, 02 Feb 2021 00:23:41 GMT</sub>
+###### <sub>Documentation generated on Thu, 16 Dec 2021 16:23:46 GMT</sub>
