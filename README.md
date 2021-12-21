@@ -15,36 +15,15 @@ If you use NPM, `npm install d3plus-dev`. Otherwise, download the [latest releas
 </script>
 ```
 
-
 ## API Reference
-
-##### 
-* [closest](#closest) - Finds the closest numeric value in an array.
 
 ##### Scripts
 * [d3plus-build](#module_d3plus-build) - Compiles all files for distribution.
 * [d3plus-dev](#module_d3plus-dev) - Spins up the development environment.
 * [d3plus-docs](#module_d3plus-docs) - Generates documentation based on code comments.
 * [d3plus-env](#module_d3plus-env) - Creates/updates shares repository files and issue labels.
-* [d3plus-examples](#module_d3plus-examples) - Generates example images and HTML.
 * [d3plus-release](#module_d3plus-release) - Publishes a release for a module.
 * [d3plus-test](#module_d3plus-test) - Runs linting and unit/browser tests on source files.
----
-
-<a name="closest"></a>
-#### d3plus.**closest**(n, [arr]) [<>](https://github.com/d3plus/d3plus-dev/blob/master/src/closest.js#L1)
-
-Finds the closest numeric value in an array.
-
-
-This is a global function.
-
-| Param | Type | Description |
-| --- | --- | --- |
-| n | <code>Number</code> | The number value to use when searching the array. |
-| [arr] | <code>Array</code> | The array of values to test against. |
-
-
 ---
 
 <a name="module_d3plus-build"></a>
@@ -87,20 +66,10 @@ This is a script accessible from the node environment.
 
 ---
 
-<a name="module_d3plus-examples"></a>
-#### **d3plus-examples** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/examples.js#L3)
-
-Parses any markdown files in the `./example` directory and transforms them into an HTML file usable on the web and takes a screenshot to be used as a thumbnail.
-
-
-This is a script accessible from the node environment.
-
----
-
 <a name="module_d3plus-release"></a>
 #### **d3plus-release** [<>](https://github.com/d3plus/d3plus-dev/blob/master/bin/release.js#L5)
 
-If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update all documentation and examples, and tag and publish release notes on Github.
+If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update README documentation, and tag and publish release notes on Github.
 
 
 This is a script accessible from the node environment.
@@ -119,4 +88,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Thu, 16 Dec 2021 16:27:17 GMT</sub>
+###### <sub>Documentation generated on Thu, 16 Dec 2021 16:35:05 GMT</sub>

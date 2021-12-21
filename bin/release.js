@@ -5,7 +5,7 @@
 /**
     @module d3plus-release
     @summary Publishes a release for a module.
-    @desc If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update all documentation and examples, and tag and publish release notes on Github.
+    @desc If the version number in the package.json has been bumped, this script will compile the release, publish it to NPM, update README documentation, and tag and publish release notes on Github.
 **/
 
 const {Octokit} = require("@octokit/rest"),
@@ -35,7 +35,6 @@ function finishRelease() {
   const github = new Octokit({auth: token});
 
   log.done();
-  execSync("d3plus-examples", {stdio: "inherit"});
   execSync("d3plus-docs", {stdio: "inherit"});
   let commits = "", releaseUrl = "", zipSize = 0;
 
@@ -106,27 +105,5 @@ function finishRelease() {
 
 }
 
-if (shell.test("-d", "../d3plus-website")) {
-  log.timer("uploading builds to d3plus.org");
-  shell.cp(`build/${name}.js`, `../d3plus-website/js/${name}.v${minor}.js`);
-  shell.cp(`build/${name}.full.js`, `../d3plus-website/js/${name}.v${minor}.full.js`);
-  shell.cp(`build/${name}.min.js`, `../d3plus-website/js/${name}.v${minor}.min.js`);
-  shell.cp(`build/${name}.full.min.js`, `../d3plus-website/js/${name}.v${minor}.full.min.js`);
-  shell.cd("../d3plus-website");
-  execAsync(`git add js/${name}.v${minor}.js js/${name}.v${minor}.min.js js/${name}.v${minor}.full.js js/${name}.v${minor}.full.min.js`)
-    .then(() => execAsync(`git commit -m \"${name} v${version}\"`))
-    .then(() => execAsync("git push"))
-    .then(() => {
-      shell.cd(`../${name}`);
-      finishRelease();
-    })
-    .catch(() => {
-      shell.cd(`../${name}`);
-      finishRelease();
-    });
-}
-else {
-  log.done();
-  log.warn("d3plus-website repository folder not found in parent directory, builds cannot be uploaded to d3plus.org");
-  finishRelease();
-}
+log.done();
+finishRelease();
