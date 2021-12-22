@@ -88,4 +88,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Thu, 16 Dec 2021 16:35:05 GMT</sub>
+###### <sub>Documentation generated on Wed, 22 Dec 2021 15:02:19 GMT</sub>
