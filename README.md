@@ -21,9 +21,7 @@ d3plus-dev can be loaded as a standalone library or bundled as part of [D3plus](
 
 ## Examples
 
-Live examples can be found on [d3plus.org](https://d3plus.org/), which includes a collection of example visualizations using [d3plus-react](https://github.com/d3plus/d3plus-react/).
-
-These examples are powered by the [d3plus-storybook](https://github.com/d3plus/d3plus-storybook/) repo, and PRs are always welcome. :beers:
+Live examples can be found on [d3plus.org](https://d3plus.org/), which includes a collection of example visualizations using [d3plus-react](https://github.com/d3plus/d3plus-react/). These examples are powered by the [d3plus-storybook](https://github.com/d3plus/d3plus-storybook/) repo, and PRs are always welcome. :beers:
 
 ## API Reference
 
@@ -98,4 +96,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Wed, 04 Jan 2023 22:05:52 GMT</sub>
+###### <sub>Documentation generated on Wed, 04 Jan 2023 22:06:27 GMT</sub>
