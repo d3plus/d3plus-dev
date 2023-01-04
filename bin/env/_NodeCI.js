@@ -7,7 +7,11 @@ module.exports = log => {
   shell.mkdir("-p", ".github/workflows");
   new shell.ShellString(`name: Node.js CI
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
