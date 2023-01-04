@@ -12,7 +12,7 @@ on: [push]
 jobs:
   test:
 
-    runs-on: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
