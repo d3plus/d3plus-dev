@@ -39,9 +39,7 @@ jobs:
       - name: Link d3plus-dev Scripts
         run: npm link
       - name: Run Headless Tests
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm test
+        run: xvfb-run -a npm test
 `).to(".github/workflows/NodeCI.yml");
 
 };
