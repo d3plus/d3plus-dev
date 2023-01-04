@@ -31,10 +31,13 @@ log.timer("creating/updating .eslintrc");
 new shell.ShellString(JSON.stringify(eslint, null, 2)).to(".eslintrc");
 
 require("./_gitignore.js")(log);
-shell.rm(".npmignore");
-require("./_travis.js")(log);
 require("./_LICENSE.js")(log);
 require("./_ISSUE_TEMPLATE.js")(log);
-require("./_PULL_REQUEST_TEMPLATE.js")(log);
 require("./_CONTRIBUTING.js")(log);
+require("./_NodeCI.js")(log);
 require("./_issueLabels.js")(log);
+
+// deprecated files
+shell.rm("-f", ".npmignore");
+shell.rm("-f", ".travis.yml");
+shell.rm("-f", ".github/PULL_REQUEST_TEMPLATE.md");
