@@ -4,7 +4,7 @@ A collection of scripts for developing D3plus modules.
 
 ## Installing
 
-If using npm, `npm install d3plus-dev`. Otherwise, you can download the [latest release from GitHub](https://github.com/d3plus/d3plus-dev/releases/latest) or load from a [CDN]("https://cdn.jsdelivr.net/npm/d3plus-dev@1).
+If using npm, `npm install d3plus-dev`. Otherwise, you can download the [latest release from GitHub](https://github.com/d3plus/d3plus-dev/releases/latest) or load from a [CDN](https://cdn.jsdelivr.net/npm/d3plus-dev@1).
 
 ```js
 import modules from "d3plus-dev";
@@ -92,4 +92,4 @@ This is a script accessible from the node environment.
 
 
 
-###### <sub>Documentation generated on Wed, 04 Jan 2023 22:00:00 GMT</sub>
+###### <sub>Documentation generated on Wed, 04 Jan 2023 22:00:39 GMT</sub>
