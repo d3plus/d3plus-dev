@@ -24,13 +24,17 @@ const template = `${shell.tempdir()}/README.hbs`;
 
 const contents = `# ${name}
 
-[![NPM Release](http://img.shields.io/npm/v/${name}.svg?style=flat)](https://www.npmjs.org/package/${name}) [![Build Status](https://travis-ci.org/d3plus/${name}.svg?branch=master)](https://travis-ci.org/d3plus/${name}) [![Dependency Status](http://img.shields.io/david/d3plus/${name}.svg?style=flat)](https://david-dm.org/d3plus/${name}) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/)
-
 ${description}
 
 ## Installing
 
-If you use NPM, \`npm install ${name}\`. Otherwise, download the [latest release](https://github.com/d3plus/${name}/releases/latest). You can also load ${name} as a standalone library or as part of [D3plus](https://github.com/d3plus/d3plus). ES modules, AMD, CommonJS, and vanilla environments are supported. In vanilla, a \`d3plus\` global is exported:
+If using npm, \`npm install ${name}\`. Otherwise, you can download the [latest release from GitHub](https://github.com/d3plus/${name}/releases/latest) or load from a [CDN](https://cdn.jsdelivr.net/npm/${name}@${major}).
+
+\`\`\`js
+import modules from "${name}";
+\`\`\`
+
+${name} can be loaded as a standalone library or bundled as part of [D3plus](https://github.com/d3plus/d3plus). ES modules, AMD, CommonJS, and vanilla environments are supported. In vanilla, a \`d3plus\` global is exported:
 
 \`\`\`html
 <script src="https://cdn.jsdelivr.net/npm/${name}@${major}"></script>
