@@ -23,8 +23,7 @@ jobs:
         with:
           node-version: '12'
       - name: Install Basic Fonts
-        run: echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-        run: sudo apt-get install ttf-mscorefonts-installer
+        run: echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections && sudo apt-get install ttf-mscorefonts-installer
       - name: Setup xvfb (Linux)
         if: runner.os == 'Linux'
         run: |
