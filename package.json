@@ -1,6 +1,6 @@
 {
   "name": "d3plus-dev",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A collection of scripts for developing D3plus modules.",
   "main": "build/d3plus-dev.full.js",
   "type": "module",
