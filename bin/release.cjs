@@ -17,7 +17,7 @@ const {Octokit} = require("@octokit/rest"),
       {name, version} = JSON.parse(shell.cat("package.json"));
 
 shell.config.silent = true;
-const log = require("./log")(`release v${version}`);
+const log = require("./log.cjs")(`release v${version}`);
 
 let minor = version.split(".");
 const prerelease = parseFloat(minor[0]) === 0;

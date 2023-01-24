@@ -6,7 +6,7 @@
     @desc Generates the READEME.md documentation based on the JSDoc comments in the codebase. This script will overwrite README.md, but will not do any interaction with Github (commit, push, etc).
 */
 
-const log = require("../log")("documentation"),
+const log = require("../log.cjs")("documentation"),
       shell = require("shelljs");
 
 shell.config.silent = true;
