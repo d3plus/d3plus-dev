@@ -33,7 +33,7 @@ jobs:
       - name: Lint Code
         run: ./node_modules/.bin/eslint src test
       - name: Run Tests
-        run: mocha 'test/**/*-test.js'
+        run: ./node_modules/.bin/mocha 'test/**/*-test.js'
 `).to(".github/workflows/NodeCI.yml");
 
 };
