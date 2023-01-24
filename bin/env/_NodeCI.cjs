@@ -31,7 +31,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Lint Code
-        run: eslint src test
+        run: ./node_modules/.bin/eslint src test
       - name: Run Tests
         run: mocha 'test/**/*-test.js'
 `).to(".github/workflows/NodeCI.yml");
