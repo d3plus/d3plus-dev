@@ -8,8 +8,7 @@
     @desc This script will create all of the repository files shared across d3plus modules, including: ignore files, travis-ci configuration, LICENSE, and github templates. Additionally, this will also standardize the issue labels available on Github.
 **/
 
-const eslint = require("./eslintrc.json"),
-      log = require("../log")("environment setup"),
+const log = require("../log.cjs")("environment setup"),
       shell = require("shelljs");
 
 log.timer("modifying package.json");
@@ -18,6 +17,7 @@ pkg.main = `build/${pkg.name}.full.js`;
 pkg.module = "es/index";
 pkg["jsnext:main"] = "es/index";
 pkg.sideEffects = false;
+pkg.type = "module";
 pkg.files = [
   "bin",
   `build/${pkg.name}.js`,
@@ -25,17 +25,32 @@ pkg.files = [
   `build/${pkg.name}.min.js`,
   "es"
 ];
+pkg.scripts = {
+  build: "d3plus-build",
+  dev: "d3plus-dev",
+  docs: "d3plus-docs",
+  env: "d3plus-env",
+  release: "d3plus-release",
+  test: "eslint src test && mocha 'test/**/*-test.js'"
+};
 new shell.ShellString(`${JSON.stringify(pkg, null, 2)}\n`).to("package.json");
 
 log.timer("creating/updating .eslintrc");
+const eslint = require("./eslintrc.json");
 new shell.ShellString(JSON.stringify(eslint, null, 2)).to(".eslintrc");
 
-require("./_gitignore.js")(log);
-require("./_LICENSE.js")(log);
-require("./_ISSUE_TEMPLATE.js")(log);
-require("./_CONTRIBUTING.js")(log);
-require("./_NodeCI.js")(log);
-require("./_issueLabels.js")(log);
+log.timer("creating/updating test/.eslintrc");
+shell.mkdir("-p", "test");
+const eslintTest = require("./eslintrc-test.json");
+new shell.ShellString(JSON.stringify(eslintTest, null, 2)).to("test/.eslintrc");
+
+require("./_jsdom.cjs")(log);
+require("./_gitignore.cjs")(log);
+require("./_LICENSE.cjs")(log);
+require("./_ISSUE_TEMPLATE.cjs")(log);
+require("./_CONTRIBUTING.cjs")(log);
+require("./_NodeCI.cjs")(log);
+require("./_issueLabels.cjs")(log);
 
 // deprecated files
 shell.rm("-f", ".npmignore");

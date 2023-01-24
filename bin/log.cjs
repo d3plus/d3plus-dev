@@ -1,5 +1,5 @@
 const chalk = require("chalk"),
-      logo = require("./logo.js"),
+      logo = require("./logo.cjs"),
       shell = require("shelljs");
 
 module.exports = function(name) {

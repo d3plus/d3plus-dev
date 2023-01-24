@@ -9,7 +9,7 @@
 **/
 
 const {Octokit} = require("@octokit/rest"),
-      execAsync = require("./execAsync"),
+      execAsync = require("./execAsync.cjs"),
       {execSync} = require("child_process"),
       fs = require("fs"),
       shell = require("shelljs"),
@@ -49,7 +49,7 @@ function finishRelease() {
       log.timer("commiting all modified files for release");
       return execAsync("git add --all");
     })
-    .then(() => execAsync(`git commit -m \"compiles v${version}\"`))
+    .then(() => execAsync(`git commit -m "compiles v${version}"`))
     .then(() => {
       log.timer("tagging latest commit");
       return execAsync(`git tag v${version}`);

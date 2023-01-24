@@ -3,6 +3,7 @@
   "version": "1.2.3",
   "description": "A collection of scripts for developing D3plus modules.",
   "main": "build/d3plus-dev.full.js",
+  "type": "module",
   "license": "MIT",
   "homepage": "https://d3plus.org",
   "repository": {
@@ -21,12 +22,11 @@
     "url": "http://www.dave-landry.com"
   },
   "bin": {
-    "d3plus-build": "bin/build.js",
-    "d3plus-dev": "bin/dev.js",
-    "d3plus-docs": "bin/docs/docs.js",
-    "d3plus-env": "bin/env/env.js",
-    "d3plus-release": "bin/release.js",
-    "d3plus-test": "bin/test.js"
+    "d3plus-build": "bin/build.cjs",
+    "d3plus-dev": "bin/dev.cjs",
+    "d3plus-docs": "bin/docs/docs.cjs",
+    "d3plus-env": "bin/env/env.cjs",
+    "d3plus-release": "bin/release.cjs"
   },
   "scripts": {
     "build": "d3plus-build",
@@ -34,7 +34,7 @@
     "docs": "d3plus-docs",
     "env": "d3plus-env",
     "release": "d3plus-release",
-    "test": "d3plus-test"
+    "test": "eslint src test && mocha 'test/**/*-test.js'"
   },
   "dependencies": {
     "@babel/cli": "^7.12.10",
@@ -64,15 +64,14 @@
     "chalk": "^4.1.2",
     "core-js": "^2.6.12",
     "eslint": "^8.31.0",
-    "faucet": "0.0.1",
     "jsdoc-to-markdown": "^6.0.1",
+    "jsdom": "^21.1.0",
     "live-server": "^1.2.1",
+    "mocha": "^10.2.0",
     "regenerator-runtime": "^0.13.7",
     "rollup": "^2.38.1",
     "shelljs": "^0.8.4",
-    "tape-run": "^10.0.0",
-    "uglify-js": "^3.12.5",
-    "zora": "^5.2.0"
+    "uglify-js": "^3.12.5"
   },
   "devDependencies": {
     "d3-selection": "^2.0.0",

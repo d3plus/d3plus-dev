@@ -1,9 +1,9 @@
-import {test} from "zora";
+import assert from "assert";
 import {strip, textSplit} from "d3plus-text";
 
-test("unicode", assert => {
+it("unicode", () => {
 
-  assert.equal(strip("á"), "a", "diacritic");
+  assert.strictEqual(strip("á"), "a", "diacritic");
 
   const chinese = textSplit("里句。");
   assert.ok(chinese[0] === "里" && chinese[1] === "句。", "simplified chinese");
@@ -15,5 +15,3 @@ test("unicode", assert => {
   assert.ok(lao[0] === "ຕໍ່" && lao[1] === "ດ້.", "lao");
 
 });
-
-export default test;

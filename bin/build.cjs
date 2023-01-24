@@ -7,11 +7,11 @@
 */
 
 const babel = require("@babel/core"),
-      execAsync = require("./execAsync"),
+      execAsync = require("./execAsync.cjs"),
       fs = require("fs"),
-      log = require("./log")("build compile"),
+      log = require("./log.cjs")("build compile"),
       path = require("path"),
-      rollup = require("./rollup"),
+      rollup = require("./rollup.cjs"),
       shell = require("shelljs"),
       {name} = JSON.parse(shell.cat("package.json"));
 
