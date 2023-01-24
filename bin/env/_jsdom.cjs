@@ -19,11 +19,13 @@ export default function jsdomit(message, html, run) {
       const dom = new JSDOM(html);
       global.window = dom.window;
       global.document = dom.window.document;
+      global.DOMParser = dom.window.DOMParser;
       await run();
     }
     finally {
       delete global.window;
       delete global.document;
+      delete global.DOMParser;
     }
   });
 }  
