@@ -64,7 +64,7 @@
     "chalk": "^4.1.2",
     "core-js": "^2.6.12",
     "eslint": "^8.31.0",
-    "jsdoc-to-markdown": "^6.0.1",
+    "jsdoc-to-markdown": "^8.0.0",
     "jsdom": "^21.1.0",
     "live-server": "^1.2.1",
     "mocha": "^10.2.0",

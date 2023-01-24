@@ -71,7 +71,7 @@ function errorHandler(cb) {
 
     if (code) {
       log.fail();
-      shell.echo(stdout);
+      shell.echo(code, stdout);
       shell.exit(code);
     }
     else if (cb) cb(code, stdout);
@@ -83,7 +83,7 @@ function errorHandler(cb) {
   };
 }
 
-const jsdocConfig = `--separators --helper ${ __dirname }/helpers.js --partial '${ __dirname }/partials/*.hbs'`;
+const jsdocConfig = `--separators --helper ${ __dirname }/helpers.cjs --partial '${ __dirname }/partials/*.hbs'`;
 shell.exec(`jsdoc2md '+(bin|src)/**/*.+(js|jsx)' ${jsdocConfig} -t ${ template } > README.md`, errorHandler(() => {
 
   shell.exec("git add README.md && git commit -m \"updates documentation\" && git push", () => {

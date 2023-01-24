@@ -1,7 +1,3 @@
-/* eslint no-unused-vars: 0 */
-
-const shell = require("shelljs");
-
 exports.currentDate = () => new Date().toUTCString();
 
 exports.codeLink = meta => {
