@@ -23,7 +23,7 @@ let minor = version.split(".");
 const prerelease = parseFloat(minor[0]) === 0;
 minor = minor.slice(0, minor.length - 1).join(".");
 
-execSync("d3plus-test", {stdio: "inherit"});
+execSync("npm run test", {stdio: "inherit"});
 execSync("d3plus-build", {stdio: "inherit"});
 
 /**
