@@ -31,6 +31,7 @@ export default function jsdomit(message, html, run) {
 
 // See jsdom's lib/jsdom/living/index.js
 var LIVING_KEYS = [
+  'DOMParser',
   'DOMException',
   'NamedNodeMap',
   'Attr',
