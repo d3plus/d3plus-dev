@@ -3,6 +3,7 @@ const {getBabelOutputPlugin} = require("@rollup/plugin-babel"),
       {nodeResolve} = require("@rollup/plugin-node-resolve"),
       json = require("@rollup/plugin-json"),
       log = require("./log.cjs")("rollup"),
+      replace = require("@rollup/plugin-replace"),
       rollup = require("rollup"),
       shell = require("shelljs"),
       {description, homepage, license, name, version} = JSON.parse(shell.cat("package.json"));
@@ -18,7 +19,12 @@ module.exports = async function(opts = {}) {
   const polyfillBundle = await polyfillBuild.generate({format: "umd"});
   const polyfills = polyfillBundle.output[0].code;
 
-  const plugins = [json()];
+  const plugins = [
+    replace({
+      "process.env.NODE_ENV": JSON.stringify(opts.env || "production")
+    }), 
+    json()
+  ];
   if (opts.deps) {
     plugins.push(commonjs());
     plugins.push(nodeResolve({mainFields: ["jsnext:main", "module", "main"], preferBuiltins: false}));

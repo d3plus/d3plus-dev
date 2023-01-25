@@ -18,5 +18,5 @@ require("live-server").start({
   watch: ["build", "dev"]
 }).on("listening", () => {
   log.done();
-  rollup({deps: true, watch: true});
+  rollup({deps: true, watch: true, env: "development"});
 });
