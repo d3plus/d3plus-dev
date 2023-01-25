@@ -29,4 +29,4 @@ Live examples can be found on [d3plus.org](https://d3plus.org/), which includes 
 
 
 
-###### <sub>Documentation generated on Tue, 24 Jan 2023 23:47:56 GMT</sub>
+###### <sub>Documentation generated on Wed, 25 Jan 2023 00:05:49 GMT</sub>
