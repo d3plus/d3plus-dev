@@ -13,9 +13,11 @@ const log = require("../log.cjs")("environment setup"),
 
 log.timer("modifying package.json");
 const pkg = JSON.parse(shell.cat("package.json"));
-pkg.main = `build/${pkg.name}.full.js`;
-pkg.module = "es/index";
-pkg["jsnext:main"] = "es/index";
+pkg.module = "es/index.js";
+pkg.main = "es/index.js";
+pkg.jsdelivr = `build/${pkg.name}.full.min.js`;
+pkg.unpkg = `build/${pkg.name}.full.min.js`;
+
 pkg.sideEffects = false;
 pkg.type = "module";
 pkg.files = [
